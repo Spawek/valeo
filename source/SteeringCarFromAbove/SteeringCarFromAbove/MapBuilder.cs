@@ -7,14 +7,25 @@ namespace SteeringCarFromAbove
 {
     public class MapBuilder
     {
-        public MapBuilder(MarkerFinder markerFinder, ObstaclesFinder obstracleFinder)
+        public MapBuilder(MarkerFinder markerFinder, ObstaclesFinder obstaclesFinder, ObjectsToTrace objectsToTrace)
         {
-            throw new System.NotImplementedException();
+            markerFinder_ = markerFinder;
+            obstaclesFinder_ = obstaclesFinder;
+            objectsToTrace_ = objectsToTrace;
         }
 
-        public Map BuildMap(List<Marker> stableMarkers, Marker carMarker, Marker parkingMarker)
+        public Map BuildMap(Image image)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
+
+        public Map RebuildMap(Image image, Map lastMap)
+        {
+            throw new NotImplementedException();
+        }
+
+        private MarkerFinder markerFinder_;
+        private ObstaclesFinder obstaclesFinder_;
+        private ObjectsToTrace objectsToTrace_;
     }
 }

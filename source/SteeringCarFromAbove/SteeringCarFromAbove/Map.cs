@@ -14,9 +14,10 @@ namespace SteeringCarFromAbove
     public class Map
     {
         public float distanceBetweenPoints = -666.666f; //in m
-        public Point carPosition = new Point(-666, -666);
-        public Point parkingPosition = new Point(-666, -666);
-        public MapPoint[,] map;
+        public PositionAndOrientation car = null;
+        public PositionAndOrientation parking = null;
+        public IDictionary<Marker, PositionAndOrientation> markers = null;
+        public MapPoint[,] map = null;
 
         public int mapSizeX { get { return map.GetLength(0); } }
         public int mapSizeY { get { return map.GetLength(1); } }

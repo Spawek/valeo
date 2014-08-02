@@ -56,7 +56,9 @@
     <Compile Include="MapPoint.cs" />
     <Compile Include="Marker.cs" />
     <Compile Include="MarkerFinder.cs" />
+    <Compile Include="ObjectsToTrace.cs" />
     <Compile Include="ObstaclesFinder.cs" />
+    <Compile Include="PositionAndOrientation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Track.cs" />
