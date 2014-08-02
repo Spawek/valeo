@@ -82,13 +82,6 @@
       <FileName>PositionAndOrientation.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SteeringCarFromAbove.ObjectsToTrace">
-    <Position X="13.25" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>ObjectsToTrace.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Enum Name="SteeringCarFromAbove.MapPoint">
     <Position X="4.5" Y="3" Width="1.5" />
     <TypeIdentifier>

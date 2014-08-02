@@ -7,7 +7,9 @@ namespace SteeringCarFromAbove
 {
     public class MapBuilder
     {
-        public MapBuilder(MarkerFinder markerFinder, ObstaclesFinder obstaclesFinder, ObjectsToTrace objectsToTrace)
+        public MapBuilder(MarkerFinder markerFinder,
+            ObstaclesFinder obstaclesFinder,
+            ObjectsToTrace objectsToTrace)
         {
             markerFinder_ = markerFinder;
             obstaclesFinder_ = obstaclesFinder;

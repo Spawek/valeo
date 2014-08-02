@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SteeringCarFromAbove
 {
-    class Marker
+    public class Marker
     {
     }
 }
