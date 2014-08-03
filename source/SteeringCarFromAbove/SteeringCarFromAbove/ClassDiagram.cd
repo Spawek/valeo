@@ -43,14 +43,21 @@
   <Class Name="SteeringCarFromAbove.MapBuilder">
     <Position X="8.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAADCAAAABAAAAgAABAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAADCIAAABAAAAgAABAA=</HashCode>
       <FileName>MapBuilder.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SteeringCarFromAbove.TrackPlanner">
     <Position X="8.25" Y="7" Width="1.5" />
+    <NestedTypes>
+      <Class Name="SteeringCarFromAbove.TrackPlanner.BFSNode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TrackPlanner.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAACAQEAACAAAACgAQAAACAEAAAAAAABAAA=</HashCode>
       <FileName>TrackPlanner.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -78,7 +85,7 @@
   <Class Name="SteeringCarFromAbove.PositionAndOrientation">
     <Position X="11.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAABgAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAABAAAA=</HashCode>
       <FileName>PositionAndOrientation.cs</FileName>
     </TypeIdentifier>
   </Class>
