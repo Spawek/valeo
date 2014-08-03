@@ -54,10 +54,11 @@
         <TypeIdentifier>
           <NewMemberFileName>TrackPlanner.cs</NewMemberFileName>
         </TypeIdentifier>
+        <Lollipop Position="0.2" />
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAQEAACAAAACgAQAAACAEAAAAAAABAAA=</HashCode>
+      <HashCode>BAAAAAAABAACAQEAACAAAACgAQIAACAEAAAAAAABAAA=</HashCode>
       <FileName>TrackPlanner.cs</FileName>
     </TypeIdentifier>
   </Class>
