@@ -15,8 +15,8 @@ namespace SteeringCarFromAbove
             parkingMarker = _parkingMarker;
         }
 
-        List<Marker> stableMarkers;
-        Marker carMarker;
-        Marker parkingMarker;
+        public List<Marker> stableMarkers;
+        public Marker carMarker;
+        public Marker parkingMarker;
     }
 }

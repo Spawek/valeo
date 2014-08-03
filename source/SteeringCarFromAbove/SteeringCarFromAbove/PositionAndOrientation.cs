@@ -7,20 +7,19 @@ namespace SteeringCarFromAbove
 {
     public class PositionAndOrientation
     {
-        public int x;
-        public int y;
-
-        private float __angle__;
-        public float angle
+        public PositionAndOrientation(double _x, double _y, double _angle)
         {
-            get { return __angle__; }
-            set
-            {
-                if (x >= 0.0f && x <= 1.0f)
-                    __angle__ = value;
-                else
-                    throw new ArgumentException("angle out of range!");
-            }
+            x = _x;
+            y = _y;
+            angle = _angle;
         }
+
+        public PositionAndOrientation()
+        {
+        }
+
+        public double x;
+        public double y;
+        public double angle;
     }
 }
