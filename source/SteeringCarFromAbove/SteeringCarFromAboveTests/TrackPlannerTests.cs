@@ -61,7 +61,7 @@ namespace SteeringCarFromAboveTests
             Assert.IsTrue(track.Count > 10);  // coz it not a bad expectation ;)
         }
         
-        //CODE IS TOO SLOW FOR THAT
+        //THIS TEST FAILS!
         [TestMethod]
         public void TrackPlannerFind360TurnTrackTest()
         {
@@ -75,6 +75,7 @@ namespace SteeringCarFromAboveTests
             map.parking = new PositionAndOrientation(_x: 500.0d, _y: 500.0d, _angle: 90.0d);
 
             List<PositionAndOrientation> track = planner.PlanTrack(map);
+            Assert.IsTrue(track.Count > 10); // its really bad assert, but still better than nothing
         }
     }
 }

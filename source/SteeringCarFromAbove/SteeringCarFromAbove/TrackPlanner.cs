@@ -12,7 +12,7 @@ namespace SteeringCarFromAbove
     //TODO: CHANGE ALL CODE TO RADIANS!!!
     //TODO: add obstacles
     
-    //NOTE: otarget can be not found becase of being close to target before but not exactly there what would block the track
+    //NOTE: target can be not found becase of being close to target before but not exactly there what would block the track
     //TODO: increase target finding tolerance if that problem occurs
     public class TrackPlanner
     {
@@ -35,7 +35,7 @@ namespace SteeringCarFromAbove
         {
             locationToleranceSquared_ = locationTolerance * locationTolerance;
             locationTolerance_ = locationTolerance;
-            angleToleranceSquared_ = angleTolerance * angleTolerance;
+            angleTolerance_ = angleTolerance;
             positionStep_ = positionStep;
             angleStep_ = angleStep;
             mapSizeX_ = mapSizeX;
@@ -65,7 +65,6 @@ namespace SteeringCarFromAbove
                 }
 
                 succesors.ForEach(x => frontier.Enqueue(x));
-                //succesors.ForEach(x => seen.Add(x.position));
                 succesors.ForEach(x => seenTree_.Insert(x));
             }
 
@@ -107,11 +106,22 @@ namespace SteeringCarFromAbove
                 PositionAndOrientation newPosition = new PositionAndOrientation(newX, newY, newAngle);
 
                 if (!IsPositionSeen(newPosition))
+                {
                     successors.Add(new BFSNode(newPosition, predecessor));
+                    addedCount++;
+                }
+                else
+                {
+                    rejectedCount++;
+                }
             }
 
             return successors;
         }
+
+
+        int addedCount = 0;
+        int rejectedCount = 0;
 
         //TODO: create static map with each possible square??? O(n) = c
         //TODO: change to octree for optimization (O(n) = n for search? ;/
@@ -128,20 +138,33 @@ namespace SteeringCarFromAbove
             return matchingPositionNodes.Any(x => AngleMatching(x.position.angle, point.angle));
         }
 
+        /// <summary>
+        /// http://blog.lexique-du-net.com/index.php?post/Calculate-the-real-difference-between-two-angles-keeping-the-sign
+        /// modified for angles in range [0, 360] deg
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         private bool AngleMatching(double a, double b)
         {
-            return a * a - b * b < angleToleranceSquared_;
+            double difference = a - b;
+
+            if (difference > 180.0d)
+                return (360.0d - difference) < angleTolerance_;
+            else
+                return difference < angleTolerance_;
         }
 
         private bool ArePointsSame(PositionAndOrientation a, PositionAndOrientation b)
         {
-            return Math.Pow(a.x - b.x, 2.0d) + Math.Pow(a.y - b.y, 2.0d) <= locationToleranceSquared_ &&
-                Math.Pow(a.angle - b.angle, 2.0d) <= angleToleranceSquared_;
+            return Math.Pow(a.x - b.x, 2.0d) + Math.Pow(a.y - b.y, 2.0d) <= locationToleranceSquared_
+                &&
+                AngleMatching(a.angle, b.angle);
         }
 
         private double locationToleranceSquared_; // squared here for optimization
         private double locationTolerance_;
-        private double angleToleranceSquared_; // squared here for optimization
+        private double angleTolerance_;
         private double positionStep_;
         private double angleStep_;
         private double mapSizeX_;

@@ -18,8 +18,19 @@ namespace SteeringCarFromAbove
         {
         }
 
+        static double Mod(double a, double n)
+        {
+            return ((a % n) + n) % n;
+        }
+
         public double x;
         public double y;
-        public double angle;
+
+        private double __angle__;
+        public double angle
+        {
+            get { return __angle__; }
+            set { __angle__ = Mod(value, 360.0f); }
+        }
     }
 }
