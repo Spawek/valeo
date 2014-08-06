@@ -56,6 +56,7 @@
     <Compile Include="MapBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackPlannerTests.cs" />
+    <Compile Include="MathToolsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SteeringCarFromAbove\SteeringCarFromAbove.csproj">

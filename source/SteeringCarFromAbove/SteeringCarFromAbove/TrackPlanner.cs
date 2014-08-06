@@ -135,31 +135,15 @@ namespace SteeringCarFromAbove
                 seenTree_.Query(new System.Drawing.RectangleF((float)point.x - (float)locationTolerance_ / 2,
                     (float)point.y - (float)locationTolerance_ / 2, (float)locationTolerance_, (float)locationTolerance_));
 
-            return matchingPositionNodes.Any(x => AngleMatching(x.position.angle, point.angle));
-        }
-
-        /// <summary>
-        /// http://blog.lexique-du-net.com/index.php?post/Calculate-the-real-difference-between-two-angles-keeping-the-sign
-        /// modified for angles in range [0, 360] deg
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        private bool AngleMatching(double a, double b)
-        {
-            double difference = a - b;
-
-            if (difference > 180.0d)
-                return (360.0d - difference) < angleTolerance_;
-            else
-                return difference < angleTolerance_;
+            return matchingPositionNodes.Any(
+                x => MathTools.AnglesEqual(x.position.angle, point.angle, angleTolerance_));
         }
 
         private bool ArePointsSame(PositionAndOrientation a, PositionAndOrientation b)
         {
             return Math.Pow(a.x - b.x, 2.0d) + Math.Pow(a.y - b.y, 2.0d) <= locationToleranceSquared_
                 &&
-                AngleMatching(a.angle, b.angle);
+                 MathTools.AnglesEqual(a.angle, b.angle, angleTolerance_);
         }
 
         private double locationToleranceSquared_; // squared here for optimization

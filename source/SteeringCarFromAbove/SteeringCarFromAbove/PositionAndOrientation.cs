@@ -18,11 +18,6 @@ namespace SteeringCarFromAbove
         {
         }
 
-        static double Mod(double a, double n)
-        {
-            return ((a % n) + n) % n;
-        }
-
         public double x;
         public double y;
 
@@ -30,7 +25,7 @@ namespace SteeringCarFromAbove
         public double angle
         {
             get { return __angle__; }
-            set { __angle__ = Mod(value, 360.0f); }
+            set { __angle__ = MathTools.Mod(value, 360.0f); }
         }
     }
 }
