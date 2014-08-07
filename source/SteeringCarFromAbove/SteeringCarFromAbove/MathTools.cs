@@ -28,7 +28,7 @@ namespace SteeringCarFromAbove
         /// <returns></returns>
         public static bool AnglesEqual(double a, double b, double tolerance)
         {
-            double difference = a - b;
+            double difference = Math.Abs(a - b);
 
             if (difference > 180.0d)
                 return (360.0d - difference) < tolerance;

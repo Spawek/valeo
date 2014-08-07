@@ -23,10 +23,11 @@ namespace SteeringCarFromAboveTests
         public void AngleEqualTest()
         {
             Assert.IsTrue(MathTools.AnglesEqual(10.0d, 20.0d, 15.0d));
+            Assert.IsTrue(MathTools.AnglesEqual(20.0d, 10.0d, 15.0d));
             Assert.IsTrue(MathTools.AnglesEqual(355.0d, 5.0d, 15.0d));
 
             Assert.IsFalse(MathTools.AnglesEqual(355.0d, 5.0d, 5.0d));
-            Assert.IsTrue(MathTools.AnglesEqual(10.0d, 20.0d, 5.0d));
+            Assert.IsFalse(MathTools.AnglesEqual(10.0d, 20.0d, 5.0d));
         }
     }
 }

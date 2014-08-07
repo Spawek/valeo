@@ -16,18 +16,18 @@ namespace SteeringCarFromAbove
     //TODO: increase target finding tolerance if that problem occurs
     public class TrackPlanner
     {
-        private class BFSNode : IHasRect
+        private class BFSNode : IHasPoint
         {
             public BFSNode(PositionAndOrientation _position, BFSNode _predecessor)
             {
                 position = _position;
                 predecessor = _predecessor;
-                Rectangle = new System.Drawing.RectangleF((float)position.x, (float)position.y, 0.001f, 0.001f);
+                Point = new System.Drawing.PointF((float)position.x, (float)position.y);
             }
             public PositionAndOrientation position;
             public BFSNode predecessor;
 
-            public System.Drawing.RectangleF Rectangle { get; private set; }
+            public System.Drawing.PointF Point { get; private set; }
         }
 
         public TrackPlanner(double locationTolerance, double angleTolerance, double positionStep, double angleStep,
@@ -76,7 +76,7 @@ namespace SteeringCarFromAbove
             List<PositionAndOrientation> path = new List<PositionAndOrientation>();
 
             BFSNode curr = target;
-            while (curr.predecessor != null)
+            while (curr != null)
             {
                 path.Add(curr.position);
                 curr = curr.predecessor;

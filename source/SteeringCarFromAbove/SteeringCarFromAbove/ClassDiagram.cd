@@ -58,7 +58,7 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>BAAAAAAABAACAQEAACAAAACgAQIAACAEAAAAAAABAAA=</HashCode>
+      <HashCode>BAAAAAAAFAACAQEAACAAAACgAQIAACAEAABAAAAAAgQ=</HashCode>
       <FileName>TrackPlanner.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -86,7 +86,7 @@
   <Class Name="SteeringCarFromAbove.PositionAndOrientation">
     <Position X="11.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAABgAABAAAA=</HashCode>
       <FileName>PositionAndOrientation.cs</FileName>
     </TypeIdentifier>
   </Class>

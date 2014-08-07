@@ -9,7 +9,7 @@ namespace QuadTreeLib
     /// The QuadTreeNode
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class QuadTreeNode<T> where T : IHasRect
+    public class QuadTreeNode<T> where T : IHasPoint
     {
         /// <summary>
         /// Construct a quadtree node with the given bounds 
@@ -98,7 +98,7 @@ namespace QuadTreeLib
             // to see if they intersect.
             foreach (T item in this.Contents)
             {
-                if (queryArea.IntersectsWith(item.Rectangle))
+                if (queryArea.Contains(item.Point))
                     results.Add(item);
             }
 
@@ -147,7 +147,7 @@ namespace QuadTreeLib
         public void Insert(T item)
         {
             // if the item is not contained in this quad, there's a problem
-            if (!m_bounds.Contains(item.Rectangle))
+            if (!m_bounds.Contains(item.Point))
             {
                 Trace.TraceWarning("feature is out of the bounds of this quadtree node");
                 return;
@@ -163,7 +163,7 @@ namespace QuadTreeLib
             // this recurses into the node that is just large enough to fit this item
             foreach (QuadTreeNode<T> node in m_nodes)
             {
-                if (node.Bounds.Contains(item.Rectangle))
+                if (node.Bounds.Contains(item.Point))
                 {
                     node.Insert(item);
                     return;

@@ -23,7 +23,7 @@ namespace SteeringCarFromAboveTests
             map.parking = new PositionAndOrientation(_x: 500.0d, _y: 510.0d, _angle: 90.0d);
             
             List<PositionAndOrientation> track = planner.PlanTrack(map);
-            Assert.AreEqual(1, track.Count);
+            Assert.AreEqual(2, track.Count);
 
         }
 
@@ -41,7 +41,7 @@ namespace SteeringCarFromAboveTests
             map.parking = new PositionAndOrientation(_x: 500.0d, _y: 600.0d, _angle: 90.0d);
 
             List<PositionAndOrientation> track = planner.PlanTrack(map);
-            Assert.AreEqual(10, track.Count);
+            Assert.AreEqual(11, track.Count);
         }
 
         [TestMethod]
@@ -61,7 +61,6 @@ namespace SteeringCarFromAboveTests
             Assert.IsTrue(track.Count > 10);  // coz it not a bad expectation ;)
         }
         
-        //THIS TEST FAILS!
         [TestMethod]
         public void TrackPlannerFind360TurnTrackTest()
         {
@@ -77,5 +76,24 @@ namespace SteeringCarFromAboveTests
             List<PositionAndOrientation> track = planner.PlanTrack(map);
             Assert.IsTrue(track.Count > 10); // its really bad assert, but still better than nothing
         }
+
+        [TestMethod]
+        public void TrackPlannerLongRunTest()
+        {
+            TrackPlanner planner = new TrackPlanner(
+                locationTolerance: 9.0d, angleTolerance: 19.0d,
+                positionStep: 10.0d, angleStep: 20.0d,
+                mapSizeX: 1000.0d, mapSizeY: 1000.0d);
+            Map map = new Map(2, 2, 2);
+
+            map.car = new PositionAndOrientation(_x: 100.0d, _y: 100.0d, _angle: 90.0d);
+            map.parking = new PositionAndOrientation(_x: 900.0d, _y: 900.0d, _angle: 90.0d);
+
+            List<PositionAndOrientation> track = planner.PlanTrack(map);
+            Assert.IsTrue(track.Count > 10); // its really bad assert, but still better than nothing
+        }
+
+
+
     }
 }

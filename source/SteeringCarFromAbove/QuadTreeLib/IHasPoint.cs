@@ -7,8 +7,8 @@ namespace QuadTreeLib
     /// An interface that defines and object with a 
     /// 
     /// </summary>
-    public interface IHasRect
+    public interface IHasPoint
     {
-        RectangleF Rectangle { get; }
+        PointF Point { get; }
     }
 }
