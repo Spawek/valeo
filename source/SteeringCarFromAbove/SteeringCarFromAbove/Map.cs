@@ -26,16 +26,6 @@ namespace SteeringCarFromAbove
         public PositionAndOrientation parking = null;
         public IDictionary<Marker, PositionAndOrientation> markers = null;
         public List<Rectangle> obstacles = null;
-
-        private MapPoint[,] map_;
-        public MapPoint this[int x, int y]
-        {
-            get { return map_[x, y]; }
-            set { map_[x, y] = value; }
-        }
-
-        public int MapPointsCountX { get { return map_.GetLength(0); } }
-        public int MapPointsCountY { get { return map_.GetLength(1); } }
     }
 
 }
