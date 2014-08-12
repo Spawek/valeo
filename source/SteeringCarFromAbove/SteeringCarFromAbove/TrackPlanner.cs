@@ -23,8 +23,8 @@ namespace SteeringCarFromAbove
                 position = _position;
                 predecessor = _predecessor;
                 Rect = new Rectangle((int)position.x, (int)position.y, 1, 1);
-                
             }
+
             public PositionAndOrientation position;
             public BFSNode predecessor;
 
@@ -43,6 +43,7 @@ namespace SteeringCarFromAbove
             public bool HasMoved { get { return false; } }
         }
 
+        public event EventHandler<PositionAndOrientation> NewSuccessorFound;
 
         public TrackPlanner(int locationTolerance, double angleTolerance, double positionStep, double angleStep,
             double mapSizeX, double mapSizeY)
@@ -124,6 +125,11 @@ namespace SteeringCarFromAbove
                 if (!IsPositionSeen(newPosition) && !(IsPositionObstacled(newPosition)))
                 {
                     successors.Add(new BFSNode(newPosition, predecessor));
+                    EventHandler<PositionAndOrientation> temp = NewSuccessorFound;
+                    if (temp != null)
+                    {
+                        temp(this, newPosition);
+                    }
                 }
             }
 
