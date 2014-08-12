@@ -7,8 +7,6 @@ namespace SteeringCarFromAbove
 {
     public class MapBuilder
     {
-        private const int MAP_SIZE = 100;
-
         public MapBuilder(MarkerFinder markerFinder,
             ObstaclesFinder obstaclesFinder,
             ObjectsToTrace objectsToTrace)
@@ -20,7 +18,7 @@ namespace SteeringCarFromAbove
 
         public Map BuildMap(Image image)
         {
-            Map map = new Map(MAP_SIZE, image.maxX, image.maxY);
+            Map map = new Map(image.maxX, image.maxY);
             map.car = markerFinder_.FindMarker(image, objectsToTrace_.carMarker);
             map.parking = markerFinder_.FindMarker(image, objectsToTrace_.parkingMarker);
             map.markers = objectsToTrace_.stableMarkers.ToDictionary(x => x, x => markerFinder_.FindMarker(image, x));

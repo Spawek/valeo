@@ -17,7 +17,7 @@ namespace SteeringCarFromAboveTests
                 positionStep: 10.0d, angleStep: 20.0d,
                 mapSizeX: 1000.0d, mapSizeY: 1000.0d);
 
-            Map map = new Map(2, 2, 2);
+            Map map = new Map(1000, 1000);
 
             map.car = new PositionAndOrientation(_x: 500.0d, _y: 500.0d, _angle: 90.0d);
             map.parking = new PositionAndOrientation(_x: 500.0d, _y: 510.0d, _angle: 90.0d);
@@ -35,7 +35,7 @@ namespace SteeringCarFromAboveTests
                 positionStep: 10.0d, angleStep: 20.0d,
                 mapSizeX: 1000.0d, mapSizeY: 1000.0d);
 
-            Map map = new Map(2, 2, 2);
+            Map map = new Map(1000, 1000);
 
             map.car = new PositionAndOrientation(_x: 500.0d, _y: 500.0d, _angle: 90.0d);
             map.parking = new PositionAndOrientation(_x: 500.0d, _y: 600.0d, _angle: 90.0d);
@@ -52,7 +52,7 @@ namespace SteeringCarFromAboveTests
                 positionStep: 10.0d, angleStep: 20.0d,
                 mapSizeX: 1000.0d, mapSizeY: 1000.0d);
 
-            Map map = new Map(2, 2, 2);
+            Map map = new Map(1000, 1000);
 
             map.car = new PositionAndOrientation(_x: 500.0d, _y: 500.0d, _angle: 90.0d);
             map.parking = new PositionAndOrientation(_x: 600.0d, _y: 600.0d, _angle: 0.0d);
@@ -68,7 +68,7 @@ namespace SteeringCarFromAboveTests
                 locationTolerance: 9, angleTolerance: 19.0d,
                 positionStep: 10.0d, angleStep: 20.0d,
                 mapSizeX: 1000.0d, mapSizeY: 1000.0d);
-            Map map = new Map(2, 2, 2);
+            Map map = new Map(1000, 1000);
 
             map.car = new PositionAndOrientation(_x: 500.0d, _y: 500.0d, _angle: 90.0d);
             map.parking = new PositionAndOrientation(_x: 500.0d, _y: 500.0d, _angle: 90.0d);
@@ -84,7 +84,7 @@ namespace SteeringCarFromAboveTests
                 locationTolerance: 29, angleTolerance: 19.0d,
                 positionStep: 30.0d, angleStep: 20.0d,
                 mapSizeX: 1000.0d, mapSizeY: 1000.0d);
-            Map map = new Map(2, 2, 2);
+            Map map = new Map(1000, 1000);
 
             map.car = new PositionAndOrientation(_x: 100.0d, _y: 100.0d, _angle: 90.0d);
             map.parking = new PositionAndOrientation(_x: 900.0d, _y: 900.0d, _angle: 90.0d);
