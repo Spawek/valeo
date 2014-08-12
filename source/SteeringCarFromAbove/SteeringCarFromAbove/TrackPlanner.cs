@@ -16,7 +16,7 @@ namespace SteeringCarFromAbove
     //TODO: increase target finding tolerance if that problem occurs
     public class TrackPlanner
     {
-        private class BFSNode : C3.XNA.IQuadStorable
+        private class BFSNode : IQuadStorable
         {
             public BFSNode(PositionAndOrientation _position, BFSNode _predecessor)
             {
@@ -47,7 +47,7 @@ namespace SteeringCarFromAbove
             mapSizeX_ = mapSizeX;
             mapSizeY_ = mapSizeY;
 
-            seen_ = new C3.XNA.QuadTree<BFSNode>(0, 0, (int)mapSizeX, (int)mapSizeY);
+            seen_ = new QuadTree<BFSNode>(0, 0, (int)mapSizeX, (int)mapSizeY);
         }
 
         public List<PositionAndOrientation> PlanTrack(Map map)
@@ -154,6 +154,6 @@ namespace SteeringCarFromAbove
         private double angleStep_;
         private double mapSizeX_;
         private double mapSizeY_;
-        private C3.XNA.QuadTree<BFSNode> seen_;
+        private QuadTree<BFSNode> seen_;
     }
 }

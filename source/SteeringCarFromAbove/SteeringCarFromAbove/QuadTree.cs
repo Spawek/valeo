@@ -18,7 +18,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace C3.XNA
+namespace SteeringCarFromAbove
 {
 	/// <summary>
 	/// Interface to define Rect, so that QuadTree knows how to store the object.

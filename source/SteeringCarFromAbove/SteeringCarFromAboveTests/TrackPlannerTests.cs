@@ -81,8 +81,8 @@ namespace SteeringCarFromAboveTests
         public void TrackPlannerLongRunTest()
         {
             TrackPlanner planner = new TrackPlanner(
-                locationTolerance: 9, angleTolerance: 19.0d,
-                positionStep: 10.0d, angleStep: 20.0d,
+                locationTolerance: 29, angleTolerance: 19.0d,
+                positionStep: 30.0d, angleStep: 20.0d,
                 mapSizeX: 1000.0d, mapSizeY: 1000.0d);
             Map map = new Map(2, 2, 2);
 
