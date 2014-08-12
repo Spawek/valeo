@@ -43,7 +43,7 @@
   <Class Name="SteeringCarFromAbove.MapBuilder">
     <Position X="8.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAADCIAAABAAAAgAABAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAADCIAAABAAAAAAABAA=</HashCode>
       <FileName>MapBuilder.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -56,16 +56,22 @@
         </TypeIdentifier>
         <Lollipop Position="0.2" />
       </Class>
+      <Class Name="SteeringCarFromAbove.TrackPlanner.Obstacle" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TrackPlanner.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>BABAAAAAFAACAQEAACAAAACgAQIAACAEAABAAAAAAgQ=</HashCode>
+      <HashCode>BAAAAAAAEAACAQEAACAAAACgAQIQACgEAABAAAAAAgQ=</HashCode>
       <FileName>TrackPlanner.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SteeringCarFromAbove.Map">
     <Position X="4.25" Y="5" Width="2" />
     <TypeIdentifier>
-      <HashCode>BAAABABAAAAAAABACIAAAEAIAAIAAAAAAAAAAAAIAAA=</HashCode>
+      <HashCode>BAAABAAAAAAAAAAAAAAAAEAIAAIAAAAAAAAAAAIAAAA=</HashCode>
       <FileName>Map.cs</FileName>
     </TypeIdentifier>
   </Class>

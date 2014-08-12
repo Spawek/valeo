@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SteeringCarFromAbove;
 
@@ -91,6 +92,23 @@ namespace SteeringCarFromAboveTests
 
             List<PositionAndOrientation> track = planner.PlanTrack(map);
             Assert.IsTrue(track.Count > 10); // its really bad assert, but still better than nothing
+        }
+
+        [TestMethod]
+        public void TrackPlannerObstacleTest()
+        {
+            TrackPlanner planner = new TrackPlanner(
+                locationTolerance: 39, angleTolerance: 19.0d,
+                positionStep: 40.0, angleStep: 20.0d,
+                mapSizeX: 1000.0d, mapSizeY: 1000.0d);
+            Map map = new Map(1000, 1000);
+
+            map.car = new PositionAndOrientation(_x: 500.0, _y: 100.0d, _angle: 90.0d);
+            map.parking = new PositionAndOrientation(_x: 500.0, _y: 900.0, _angle: 90.0d);
+            map.obstacles.Add(new Rectangle(350, 500, 300, 50));
+
+            List<PositionAndOrientation> track = planner.PlanTrack(map);
+            Assert.IsTrue(track.Count > 20); 
         }
 
 

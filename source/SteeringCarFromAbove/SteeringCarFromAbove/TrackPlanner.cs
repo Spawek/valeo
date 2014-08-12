@@ -27,14 +27,22 @@ namespace SteeringCarFromAbove
             }
             public PositionAndOrientation position;
             public BFSNode predecessor;
-        
-            public Rectangle Rect{get ; private set;}
 
-            public bool HasMoved
+            public Rectangle Rect { get; private set; }
+            public bool HasMoved { get { return false; } }
+        }
+
+        private class Obstacle : IQuadStorable
+        {
+            public Obstacle(Rectangle _rect)
             {
-	            get { return false; }
+                Rect = _rect;
             }
-    }
+
+            public Rectangle Rect { get; private set; }
+            public bool HasMoved { get { return false; } }
+        }
+
 
         public TrackPlanner(int locationTolerance, double angleTolerance, double positionStep, double angleStep,
             double mapSizeX, double mapSizeY)
@@ -52,6 +60,8 @@ namespace SteeringCarFromAbove
 
         public List<PositionAndOrientation> PlanTrack(Map map)
         {
+            obstacles_ = map.obstacles;
+
             Queue<BFSNode> frontier = new Queue<BFSNode>();
             BFSNode startPoint = new BFSNode(map.car, null);
             frontier.Enqueue(startPoint);
@@ -111,33 +121,30 @@ namespace SteeringCarFromAbove
                 double newAngle = predecessor.position.angle + angleStep_ * i;
                 PositionAndOrientation newPosition = new PositionAndOrientation(newX, newY, newAngle);
 
-                if (!IsPositionSeen(newPosition))
+                if (!IsPositionSeen(newPosition) && !(IsPositionObstacled(newPosition)))
                 {
                     successors.Add(new BFSNode(newPosition, predecessor));
-                    addedCount++;
-                }
-                else
-                {
-                    rejectedCount++;
                 }
             }
 
             return successors;
         }
 
-
-        int addedCount = 0;
-        int rejectedCount = 0;
-
-        List<PositionAndOrientation> seen = new List<PositionAndOrientation>();
         private bool IsPositionSeen(PositionAndOrientation point)
         {
-            List<BFSNode> matchingPositionNodes = seen_.GetObjects(
-                new Rectangle((int)point.x - locationTolerance_ / 2, (int)point.y - locationTolerance_ / 2,
-                    locationTolerance_, locationTolerance_));
+            List<BFSNode> matchingPositionNodes = seen_.GetObjects(new Rectangle(
+                (int)point.x - locationTolerance_ / 2, (int)point.y - locationTolerance_ / 2,
+                locationTolerance_, locationTolerance_));
 
             return matchingPositionNodes.Any(
                 x => MathTools.AnglesEqual(x.position.angle, point.angle, angleTolerance_));
+        }
+
+        private bool IsPositionObstacled(PositionAndOrientation point)
+        {
+            Rectangle pointRectangle = new Rectangle((int)point.x, (int)point.y, 1, 1);
+
+            return obstacles_.Any(x => x.Contains(pointRectangle));
         }
 
         private bool ArePointsSame(PositionAndOrientation a, PositionAndOrientation b)
@@ -155,5 +162,6 @@ namespace SteeringCarFromAbove
         private double mapSizeX_;
         private double mapSizeY_;
         private QuadTree<BFSNode> seen_;
+        private List<Rectangle> obstacles_;
     }
 }
