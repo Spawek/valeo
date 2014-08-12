@@ -15,7 +15,7 @@ namespace SteeringCarFromAbove
         public Form1()
         {
             TrackPlanner planner = new TrackPlanner(
-            locationTolerance: 9.0d, angleTolerance: 19.0d,
+            locationTolerance: 9, angleTolerance: 19.0d,
             positionStep: 10.0d, angleStep: 20.0d,
             mapSizeX: 1000.0d, mapSizeY: 1000.0d);
             Map map = new Map(2, 2, 2);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using QuadTreeLib;
+using System.Drawing;
 
 namespace SteeringCarFromAbove
 {
@@ -16,21 +16,27 @@ namespace SteeringCarFromAbove
     //TODO: increase target finding tolerance if that problem occurs
     public class TrackPlanner
     {
-        private class BFSNode : IHasPoint
+        private class BFSNode : C3.XNA.IQuadStorable
         {
             public BFSNode(PositionAndOrientation _position, BFSNode _predecessor)
             {
                 position = _position;
                 predecessor = _predecessor;
-                Point = new System.Drawing.PointF((float)position.x, (float)position.y);
+                Rect = new Rectangle((int)position.x, (int)position.y, 1, 1);
+                
             }
             public PositionAndOrientation position;
             public BFSNode predecessor;
+        
+            public Rectangle Rect{get ; private set;}
 
-            public System.Drawing.PointF Point { get; private set; }
-        }
+            public bool HasMoved
+            {
+	            get { return false; }
+            }
+    }
 
-        public TrackPlanner(double locationTolerance, double angleTolerance, double positionStep, double angleStep,
+        public TrackPlanner(int locationTolerance, double angleTolerance, double positionStep, double angleStep,
             double mapSizeX, double mapSizeY)
         {
             locationToleranceSquared_ = locationTolerance * locationTolerance;
@@ -41,7 +47,7 @@ namespace SteeringCarFromAbove
             mapSizeX_ = mapSizeX;
             mapSizeY_ = mapSizeY;
 
-            seenTree_ = new QuadTree<BFSNode>(new System.Drawing.RectangleF(0.0f, 0.0f, (float)mapSizeX, (float)mapSizeY));
+            seen_ = new C3.XNA.QuadTree<BFSNode>(0, 0, (int)mapSizeX, (int)mapSizeY);
         }
 
         public List<PositionAndOrientation> PlanTrack(Map map)
@@ -65,7 +71,7 @@ namespace SteeringCarFromAbove
                 }
 
                 succesors.ForEach(x => frontier.Enqueue(x));
-                succesors.ForEach(x => seenTree_.Insert(x));
+                succesors.ForEach(x => seen_.Add(x));
             }
 
             return new List<PositionAndOrientation>();  // couldn't find result - returning empty list
@@ -123,17 +129,12 @@ namespace SteeringCarFromAbove
         int addedCount = 0;
         int rejectedCount = 0;
 
-        //TODO: create static map with each possible square??? O(n) = c
-        //TODO: change to octree for optimization (O(n) = n for search? ;/
-        //TODO: can be even simpler algorithm on sorted list x and then sorted list y and then sorted list angle
-        //TODO: use that: http://www.codeproject.com/Articles/30535/A-Simple-QuadTree-Implementation-in-C
         List<PositionAndOrientation> seen = new List<PositionAndOrientation>();
         private bool IsPositionSeen(PositionAndOrientation point)
         {
-            //return seen.Any(x => ArePointsSame(x, point));
-            List<BFSNode> matchingPositionNodes =
-                seenTree_.Query(new System.Drawing.RectangleF((float)point.x - (float)locationTolerance_ / 2,
-                    (float)point.y - (float)locationTolerance_ / 2, (float)locationTolerance_, (float)locationTolerance_));
+            List<BFSNode> matchingPositionNodes = seen_.GetObjects(
+                new Rectangle((int)point.x - locationTolerance_ / 2, (int)point.y - locationTolerance_ / 2,
+                    locationTolerance_, locationTolerance_));
 
             return matchingPositionNodes.Any(
                 x => MathTools.AnglesEqual(x.position.angle, point.angle, angleTolerance_));
@@ -147,12 +148,12 @@ namespace SteeringCarFromAbove
         }
 
         private double locationToleranceSquared_; // squared here for optimization
-        private double locationTolerance_;
+        private int locationTolerance_;
         private double angleTolerance_;
         private double positionStep_;
         private double angleStep_;
         private double mapSizeX_;
         private double mapSizeY_;
-        private QuadTree<BFSNode> seenTree_;
+        private C3.XNA.QuadTree<BFSNode> seen_;
     }
 }
