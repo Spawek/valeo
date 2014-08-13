@@ -16,7 +16,8 @@ namespace SteeringCarFromAbove
     //TODO: increase target finding tolerance if that problem occurs
     public class TrackPlanner
     {
-        private class BFSNode : IQuadStorable
+        //public for drawing for now
+        public class BFSNode : IQuadStorable
         {
             public BFSNode(PositionAndOrientation _position, BFSNode _predecessor)
             {
@@ -43,7 +44,7 @@ namespace SteeringCarFromAbove
             public bool HasMoved { get { return false; } }
         }
 
-        public event EventHandler<PositionAndOrientation> NewSuccessorFound;
+        public event EventHandler<BFSNode> NewSuccessorFound;
 
         public TrackPlanner(int locationTolerance, double angleTolerance, double positionStep, double angleStep,
             double mapSizeX, double mapSizeY)
@@ -187,11 +188,12 @@ namespace SteeringCarFromAbove
 
                 if (!IsPositionSeen(newPosition) && !(IsPositionObstacled(newPosition)))
                 {
+                    BFSNode newNode = new BFSNode(newPosition, predecessor);
                     successors.Add(new BFSNode(newPosition, predecessor));
-                    EventHandler<PositionAndOrientation> temp = NewSuccessorFound;
+                    EventHandler<BFSNode> temp = NewSuccessorFound;
                     if (temp != null)
                     {
-                        temp(this, newPosition);
+                        temp(this, newNode);
                     }
                 }
             }

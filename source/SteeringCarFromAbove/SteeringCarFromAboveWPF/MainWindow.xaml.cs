@@ -39,7 +39,10 @@ namespace SteeringCarFromAboveWPF
 
             map.car = new PositionAndOrientation(_x: 500.0, _y: 100.0d, _angle: 90.0d);
             map.parking = new PositionAndOrientation(_x: 1500.0, _y: 900, _angle: 90.0d);
-            map.obstacles.Add(new System.Drawing.Rectangle(350, 500, 300, 50));
+            map.obstacles.Add(new System.Drawing.Rectangle(350, 570, 300, 50));
+            map.obstacles.Add(new System.Drawing.Rectangle(350, 700, 300, 50));
+            map.obstacles.Add(new System.Drawing.Rectangle(150, 150, 50, 300));
+            map.obstacles.Add(new System.Drawing.Rectangle(150, 550, 50, 300));
 
             //List<PositionAndOrientation> track = planner.PlanTrack(map);
             planner_.PrepareTracks(map);
@@ -95,6 +98,7 @@ namespace SteeringCarFromAboveWPF
                 Canvas.SetLeft(rect, obstacle.X);
                 Canvas.SetTop(rect, obstacle.Y);
                 rect.StrokeThickness = 3;
+                //rect.IsHitTestVisible = false;
 
                 Canvas_trackPlanner.Children.Add(rect);
             }
@@ -112,6 +116,7 @@ namespace SteeringCarFromAboveWPF
             Canvas.SetLeft(parking, map.parking.x - parkingSizeX / 2);
             Canvas.SetTop(parking, map.parking.y - parkingSizeY / 2);
             parking.StrokeThickness = 7;
+            //parking.IsHitTestVisible = false;
 
             Canvas_trackPlanner.Children.Add(parking);
         }
@@ -128,6 +133,7 @@ namespace SteeringCarFromAboveWPF
             Canvas.SetLeft(car, map.car.x - carSizeX / 2);
             Canvas.SetTop(car, map.car.y - carSizeY / 2);
             car.StrokeThickness = 7;
+            //car.IsHitTestVisible = false;
 
             Canvas_trackPlanner.Children.Add(car);
         }
@@ -141,24 +147,59 @@ namespace SteeringCarFromAboveWPF
             Canvas.SetLeft(border, 0);
             Canvas.SetTop(border, 0);
             border.StrokeThickness = 5;
+            //border.IsHitTestVisible = false;
 
             Canvas_trackPlanner.Children.Add(border);
         }
 
-        private int counter = 0;
-        void planner_NewSuccessorFound(object sender, PositionAndOrientation e)
+        //http://stackoverflow.com/questions/1335426/is-there-a-built-in-c-net-system-api-for-hsv-to-rgb
+        public static Color ColorFromHSV(double hue, double saturation, double value)
         {
-            Line l = new Line();
+            int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
+            double f = hue / 60 - Math.Floor(hue / 60);
 
-            const double LENGTH = POSITION_STEP;
-            l.Stroke = Brushes.LightSteelBlue;
-            l.StrokeThickness = 1;
-            l.X1 = e.x;
-            l.X2 = e.x - Math.Cos(e.angle / 180.0d * Math.PI) * LENGTH;
-            l.Y1 = e.y;
-            l.Y2 = e.y - Math.Sin(e.angle / 180.0d * Math.PI) * LENGTH;
+            value = value * 255;
+            byte v = Convert.ToByte(value);
+            byte p = Convert.ToByte(value * (1 - saturation));
+            byte q = Convert.ToByte(value * (1 - f * saturation));
+            byte t = Convert.ToByte(value * (1 - (1 - f) * saturation));
 
-            Canvas_trackPlanner.Children.Add(l);
+            if (hi == 0)
+                return Color.FromArgb(255, v, t, p);
+            else if (hi == 1)
+                return Color.FromArgb(255, q, v, p);
+            else if (hi == 2)
+                return Color.FromArgb(255, p, v, t);
+            else if (hi == 3)
+                return Color.FromArgb(255, p, q, v);
+            else if (hi == 4)
+                return Color.FromArgb(255, t, p, v);
+            else
+                return Color.FromArgb(255, v, p, q);
+        }
+
+        private int counter = 0;
+        void planner_NewSuccessorFound(object sender, SteeringCarFromAbove.TrackPlanner.BFSNode e)
+        {
+            if (counter++ % 3 == 0)
+            {
+                int predecessorsCount = 0;
+                SteeringCarFromAbove.TrackPlanner.BFSNode curr = e;
+                while ((curr = curr.predecessor) != null) predecessorsCount++;
+
+                Line l = new Line();
+
+                const double LENGTH = POSITION_STEP;
+                l.Stroke = new SolidColorBrush(ColorFromHSV((25.0d * predecessorsCount) % 360.0d, 0.3d, 1.0d)); //Brushes.LightSteelBlue;
+                l.StrokeThickness = 1;
+                l.X1 = e.position.x;
+                l.X2 = e.position.x - Math.Cos(e.position.angle / 180.0d * Math.PI) * LENGTH;
+                l.Y1 = e.position.y;
+                l.Y2 = e.position.y - Math.Sin(e.position.angle / 180.0d * Math.PI) * LENGTH;
+                //l.IsHitTestVisible = false;
+
+                Canvas_trackPlanner.Children.Add(l);
+            }
         }
 
 
@@ -166,11 +207,13 @@ namespace SteeringCarFromAboveWPF
         private void Canvas_trackPlanner_MouseDown(object sender, MouseButtonEventArgs e)
         {
             lastMouseDown_ = e.GetPosition(Canvas_trackPlanner);
+            Console.WriteLine(String.Format("Click down: {0}, {1}", e.GetPosition(Canvas_trackPlanner).X, e.GetPosition(Canvas_trackPlanner).Y));
         }
 
         private void Canvas_trackPlanner_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Point mouseUp = e.GetPosition(Canvas_trackPlanner);
+            Console.WriteLine(String.Format("Click up: {0}, {1}", e.GetPosition(Canvas_trackPlanner).X, e.GetPosition(Canvas_trackPlanner).Y));
 
             double deltaY = mouseUp.Y - lastMouseDown_.Y;
             double deltaX = mouseUp.X - lastMouseDown_.X;
