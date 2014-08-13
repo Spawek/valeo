@@ -72,6 +72,23 @@ namespace SteeringCarFromAboveWPF
             DrawBorder(map);
             DrawCar(map);
             DrawParking(map);
+            DrawObstacles(map);
+        }
+
+        private void DrawObstacles(Map map)
+        {
+            foreach (var obstacle in map.obstacles)
+            {
+                System.Windows.Shapes.Rectangle rect = new System.Windows.Shapes.Rectangle();
+                rect.Stroke = new SolidColorBrush(Colors.Red);
+                rect.Width = obstacle.Width;
+                rect.Height = obstacle.Height;
+                Canvas.SetLeft(rect, obstacle.X);
+                Canvas.SetTop(rect, obstacle.Y);
+                rect.StrokeThickness = 3;
+
+                Canvas_trackPlanner.Children.Add(rect);
+            }
         }
 
         private void DrawParking(Map map)
