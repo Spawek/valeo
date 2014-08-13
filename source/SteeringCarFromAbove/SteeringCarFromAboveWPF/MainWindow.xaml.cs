@@ -49,8 +49,15 @@ namespace SteeringCarFromAboveWPF
             //DrawTrack(track);
         }
 
+        List<Line> lastTrack = new List<Line>();
         private void DrawTrack(List<PositionAndOrientation> track)
         {
+            foreach (var item in lastTrack)
+	        {
+                Canvas_trackPlanner.Children.Remove(item);
+	        }
+            
+            lastTrack.Clear();
             foreach (PositionAndOrientation item in track)
             {
                 Line l = new Line();
@@ -64,6 +71,8 @@ namespace SteeringCarFromAboveWPF
                 l.Y2 = item.y - Math.Sin(item.angle / 180.0d * Math.PI) * LENGTH;
 
                 Canvas_trackPlanner.Children.Add(l);
+
+                lastTrack.Add(l);
             }
         }
 
