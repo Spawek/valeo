@@ -59,8 +59,17 @@ namespace SteeringCarFromAbove
             seen_ = new QuadTree<BFSNode>(0, 0, (int)mapSizeX, (int)mapSizeY);
         }
 
+        //TODO: add version with recalc from 80% with better accuaracy
+        /// <summary>
+        /// it finishes when gets to target
+        /// </summary>
+        /// <param name="map"></param>
+        /// <returns></returns>
         public List<PositionAndOrientation> PlanTrack(Map map)
         {
+            if (seen_.GetAllObjects().Count != 0)
+                throw new ApplicationException();
+
             obstacles_ = map.obstacles;
 
             Queue<BFSNode> frontier = new Queue<BFSNode>();
@@ -86,6 +95,60 @@ namespace SteeringCarFromAbove
             }
 
             return new List<PositionAndOrientation>();  // couldn't find result - returning empty list
+        }
+
+        private Map preparedMap_ = null;
+        private BFSNode startPoint_ = null;
+        public void PrepareTracks(Map map)
+        {
+            if (seen_.GetAllObjects().Count != 0)
+                throw new ApplicationException();
+
+            preparedMap_ = map; // hack a bit - we r holding state here
+
+            obstacles_ = map.obstacles;
+
+            Queue<BFSNode> frontier = new Queue<BFSNode>();
+            startPoint_ = new BFSNode(map.car, null);
+            frontier.Enqueue(startPoint_);
+
+            PositionAndOrientation target = map.parking;
+
+            while (frontier.Count != 0)
+            {
+                BFSNode curr = frontier.Dequeue();
+
+                List<BFSNode> succesors = generateSuccessors(curr);
+
+                succesors.ForEach(x => frontier.Enqueue(x));
+                succesors.ForEach(x => seen_.Add(x));
+            }
+        }
+
+        public List<PositionAndOrientation> GetTrackFromPreparedPlanner(PositionAndOrientation target)
+        {
+            if (preparedMap_ == null)
+                throw new ApplicationException("Prepare tracks first!");
+
+            if (seen_.Count == 0)
+                throw new ApplicationException();
+
+            double smallestError = Double.MaxValue;
+            BFSNode nodeClosestToTarget = null;
+            foreach (BFSNode x in seen_)
+            {
+                double currError = Math.Pow(x.position.x - target.x, 2.0d) +
+                    Math.Pow(x.position.y - target.y, 2.0d) +
+                    Math.Pow(x.position.angle - target.angle, 2.0d);
+
+                if (currError < smallestError)
+                {
+                    smallestError = currError;
+                    nodeClosestToTarget = x;
+                }
+            }
+
+            return GetPathBetweenPoints(startPoint_, nodeClosestToTarget);
         }
 
         private List<PositionAndOrientation> GetPathBetweenPoints(BFSNode start, BFSNode target)

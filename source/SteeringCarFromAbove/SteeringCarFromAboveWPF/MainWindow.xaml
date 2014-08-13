@@ -3,6 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="543" Width="1304">
     <Grid>
-        <Canvas x:Name="Canvas_trackPlanner" HorizontalAlignment="Left" Height="492" Margin="10,10,0,0" VerticalAlignment="Top" Width="1276"/>
+        <Canvas x:Name="Canvas_trackPlanner" HorizontalAlignment="Left" Height="492" Margin="10,10,0,0" VerticalAlignment="Top" Width="1276" MouseDown="Canvas_trackPlanner_MouseDown" MouseUp="Canvas_trackPlanner_MouseUp"/>
     </Grid>
 </Window>

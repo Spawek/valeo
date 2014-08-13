@@ -21,28 +21,32 @@ namespace SteeringCarFromAboveWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        const int POSITION_STEP = 30;
+        private TrackPlanner planner_ = null;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            TrackPlanner planner = new TrackPlanner(
-                locationTolerance: 39, angleTolerance: 19.0d,
-                positionStep: 40.0, angleStep: 20.0d,
+            planner_ = new TrackPlanner(
+                locationTolerance: POSITION_STEP - 1, angleTolerance: 9.0d,
+                positionStep: (int)POSITION_STEP, angleStep: 10.0d,
                 mapSizeX: 1000.0d, mapSizeY: 1000.0d);
 
-            planner.NewSuccessorFound += planner_NewSuccessorFound;
+            planner_.NewSuccessorFound += planner_NewSuccessorFound;
 
             Map map = new Map(1000, 1000);
 
             map.car = new PositionAndOrientation(_x: 500.0, _y: 100.0d, _angle: 90.0d);
-            map.parking = new PositionAndOrientation(_x: 500.0, _y: 900, _angle: 90.0d);
+            map.parking = new PositionAndOrientation(_x: 1500.0, _y: 900, _angle: 90.0d);
             map.obstacles.Add(new System.Drawing.Rectangle(350, 500, 300, 50));
 
-            List<PositionAndOrientation> track = planner.PlanTrack(map);
+            //List<PositionAndOrientation> track = planner.PlanTrack(map);
+            planner_.PrepareTracks(map);
             Canvas_trackPlanner.UpdateLayout();
 
             DrawMap(map);
-            DrawTrack(track);
+            //DrawTrack(track);
         }
 
         private void DrawTrack(List<PositionAndOrientation> track)
@@ -51,13 +55,13 @@ namespace SteeringCarFromAboveWPF
             {
                 Line l = new Line();
 
-                const double LENGTH = 40.0d;
+                const double LENGTH = POSITION_STEP;
                 l.Stroke = Brushes.OrangeRed;
                 l.StrokeThickness = 1;
                 l.X1 = item.x;
-                l.X2 = item.x + Math.Cos(item.angle / 180.0d * Math.PI) * LENGTH;
+                l.X2 = item.x - Math.Cos(item.angle / 180.0d * Math.PI) * LENGTH;
                 l.Y1 = item.y;
-                l.Y2 = item.y + Math.Sin(item.angle / 180.0d * Math.PI) * LENGTH;
+                l.Y2 = item.y - Math.Sin(item.angle / 180.0d * Math.PI) * LENGTH;
 
                 Canvas_trackPlanner.Children.Add(l);
             }
@@ -72,8 +76,8 @@ namespace SteeringCarFromAboveWPF
 
         private void DrawParking(Map map)
         {
-            const double parkingSizeX = 15;
-            const double parkingSizeY = 30;
+            const double parkingSizeX = 38;
+            const double parkingSizeY = 70;
 
             System.Windows.Shapes.Rectangle parking = new System.Windows.Shapes.Rectangle();
             parking.Stroke = new SolidColorBrush(Colors.Red);
@@ -88,8 +92,8 @@ namespace SteeringCarFromAboveWPF
 
         private void DrawCar(Map map)
         {
-            const double carSizeX = 10;
-            const double carSizeY = 24;
+            const double carSizeX = 25;
+            const double carSizeY = 55;
 
             System.Windows.Shapes.Rectangle car = new System.Windows.Shapes.Rectangle();
             car.Stroke = new SolidColorBrush(Colors.Red);
@@ -120,15 +124,37 @@ namespace SteeringCarFromAboveWPF
         {
             Line l = new Line();
 
-            const double LENGTH = 15.0d;
+            const double LENGTH = POSITION_STEP;
             l.Stroke = Brushes.LightSteelBlue;
             l.StrokeThickness = 1;
             l.X1 = e.x;
-            l.X2 = e.x + Math.Cos(e.angle / 180.0d * Math.PI) * LENGTH;
+            l.X2 = e.x - Math.Cos(e.angle / 180.0d * Math.PI) * LENGTH;
             l.Y1 = e.y;
-            l.Y2 = e.y + Math.Sin(e.angle / 180.0d * Math.PI) * LENGTH;
+            l.Y2 = e.y - Math.Sin(e.angle / 180.0d * Math.PI) * LENGTH;
 
             Canvas_trackPlanner.Children.Add(l);
+        }
+
+
+        private Point lastMouseDown_;
+        private void Canvas_trackPlanner_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            lastMouseDown_ = e.GetPosition(Canvas_trackPlanner);
+        }
+
+        private void Canvas_trackPlanner_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Point mouseUp = e.GetPosition(Canvas_trackPlanner);
+
+            double deltaY = mouseUp.Y - lastMouseDown_.Y;
+            double deltaX = mouseUp.X - lastMouseDown_.X;
+
+            double angleInDegrees = Math.Atan2(deltaY, deltaX) * 180 / Math.PI;
+
+            List<PositionAndOrientation> track = planner_.GetTrackFromPreparedPlanner(
+                new PositionAndOrientation(lastMouseDown_.X, lastMouseDown_.Y, angleInDegrees));
+
+            DrawTrack(track);
         }
 
     }
