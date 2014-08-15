@@ -26,7 +26,7 @@ namespace SteeringCarFromAbove
             if (markersPositions.ContainsKey("car") && markersPositions.Count > 1)
             {
                 map.car = markersPositions["car"];
-                map.markers = markersPositions.Where(x => x.Key.StartsWith("s")).ToDictionary(x => x.Key, x => x.Value);
+                map.markers = markersPositions.Where(x => x.Key.StartsWith("static")).ToDictionary(x => x.Key, x => x.Value);
                 map.obstacles = obstaclesFinder_.FindObstacles(bitmap);
             }
             else
@@ -47,7 +47,7 @@ namespace SteeringCarFromAbove
             {
                 PositionAndOrientation carPosition = markersPositions["car"];
                 IDictionary<string, PositionAndOrientation> stableMarkersPosition =
-                    markersPositions.Where(x => x.Key.StartsWith("s")).ToDictionary(x => x.Key, x => x.Value);
+                    markersPositions.Where(x => x.Key.StartsWith("static")).ToDictionary(x => x.Key, x => x.Value);
 
                 double averageAngleChange =
                     stableMarkersPosition.Average(x => x.Value.angle - baseMap.markers[x.Key].angle);

@@ -32,6 +32,7 @@ namespace SteeringCarFromAboveWPF
         System.Drawing.Bitmap baseImage = null;
         Map map = null;
         MapBuilder mapBuilder = null;
+        Image plannerBackGround = new Image();
 
         public MainWindow()
         {
@@ -40,6 +41,8 @@ namespace SteeringCarFromAboveWPF
             glyphRecogniser.Show();
 
             InitializeComponent();
+
+            Canvas_trackPlanner.Children.Add(plannerBackGround); //REMOVE IT FROM HERE
 
             MarkerFinder markerFinder = new MarkerFinder();
             ObstaclesFinder obstaclesFinder = new ObstaclesFinder();
@@ -105,6 +108,9 @@ namespace SteeringCarFromAboveWPF
                         TextBlock_marksInfo.Text = String.Format("car =\nx: {0}\ny:{1}\na:{2}", map.car.x, map.car.y, map.car.angle)));
 
                     this.Dispatcher.Invoke(new Action(() => DrawMap(map)));
+
+                    this.Dispatcher.Invoke(new Action(() => plannerBackGround.Source = loadBitmap(baseImage)));
+                    this.Dispatcher.Invoke(new Action(() => Canvas_trackPlanner.UpdateLayout()));
                 }
 
                 waitingForNextBaseImage = false;
@@ -216,12 +222,13 @@ namespace SteeringCarFromAboveWPF
             car.Stroke = new SolidColorBrush(Colors.Red);
             car.Width = carSizeX;
             car.Height = carSizeY;
-            Canvas.SetLeft(car, map.car.x - carSizeX / 2);
-            Canvas.SetTop(car, map.car.y - carSizeY / 2);
             car.StrokeThickness = 7;
 
             //RotateTransform transform = new RotateTransform(map.car.angle, map.car.x, map.car.y);
             //car.RenderTransform = transform;
+
+            Canvas.SetLeft(car, map.car.x - carSizeX / 2);
+            Canvas.SetTop(car, map.car.y - carSizeY / 2);
 
             Canvas_trackPlanner.Children.Add(car);
             lastCar = car;
@@ -336,6 +343,11 @@ namespace SteeringCarFromAboveWPF
         private void button_GetNextImage_Click(object sender, RoutedEventArgs e)
         {
             waitingForNextBaseImage = true;
+        }
+
+        private void button_PrepareTrack_Click(object sender, RoutedEventArgs e)
+        {
+            planner_.PrepareTracks(map);
         }
 
     }
