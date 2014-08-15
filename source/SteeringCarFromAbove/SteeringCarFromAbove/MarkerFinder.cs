@@ -7,7 +7,7 @@ namespace SteeringCarFromAbove
 {
     public class MarkerFinder
     {
-        virtual public PositionAndOrientation FindMarker(Image image, Marker marker)
+        virtual public PositionAndOrientation FindMarker(System.Drawing.Size image, string marker)
         {
             throw new System.NotImplementedException();
         }

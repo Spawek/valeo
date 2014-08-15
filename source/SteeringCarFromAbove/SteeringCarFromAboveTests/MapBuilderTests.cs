@@ -16,11 +16,11 @@ namespace SteeringCarFromAboveTests
             MarkerFinder markerFinderMock = mocksReposiory.StrictMock<MarkerFinder>();
             ObstaclesFinder obstaclesFinderMock = mocksReposiory.StrictMock<ObstaclesFinder>();
 
-            Image image = new Image(1000, 1000);
+            System.Drawing.Size image = new System.Drawing.Size(1000, 1000);
 
-            Marker carMarker = new Marker();
-            Marker parkingMarker = new Marker();
-            List<Marker> stableMarkers = new List<Marker>(){new Marker()};
+            string carMarker = "car";
+            string parkingMarker = "parking";
+            List<string> stableMarkers = new List<string>(){"s1"};
 
             PositionAndOrientation carPosition = new PositionAndOrientation(5.0f, 4.0f, 90.0f);
             PositionAndOrientation parkingPosition = new PositionAndOrientation(1.0f, 1.0f, 1.0f);
@@ -61,11 +61,11 @@ namespace SteeringCarFromAboveTests
             const int IMAGE_SIZE_Y = 800;
             const int HALF_IMAGE_SIZE_Y = IMAGE_SIZE_Y / 2;
 
-            Image image = new Image(0, 0);
+            System.Drawing.Size image = new System.Drawing.Size(0, 0);
 
-            Marker carMarker = new Marker();
-            Marker parkingMarker = new Marker();
-            List<Marker> stableMarkers = new List<Marker>() { new Marker() };
+            string carMarker = "car";
+            string parkingMarker = "parking";
+            List<string> stableMarkers = new List<string>() { "s1" };
 
             PositionAndOrientation carPosition = new PositionAndOrientation(HALF_IMAGE_SIZE_X + 5.0f, HALF_IMAGE_SIZE_Y + 4.0f, 0.0f);
             PositionAndOrientation parkingPosition = new PositionAndOrientation(HALF_IMAGE_SIZE_X + 1.0f, HALF_IMAGE_SIZE_Y + 1.0f, 1.0f);
@@ -94,7 +94,8 @@ namespace SteeringCarFromAboveTests
             List<PositionAndOrientation> newStableMarkersPosition =
                 new List<PositionAndOrientation>() { new PositionAndOrientation(HALF_IMAGE_SIZE_X - 3.0f, HALF_IMAGE_SIZE_Y + 1.0f, 180.0f) };
 
-            Image newImage = new Image(0, 0);
+            System.Drawing.Size newImage = new System.Drawing.Size(0, 0);
+
             using (mocksReposiory.Record())
             {
                 markerFinderMock.Expect(x => x.FindMarker(newImage, carMarker))

@@ -30,6 +30,7 @@ namespace SteeringCarFromAboveWPF
         IVideoSource videoSource = null;
         bool waitingForNextBaseImage = false;
         System.Drawing.Bitmap baseImage = null;
+        Map map = null;
 
         public MainWindow()
         {
@@ -46,19 +47,18 @@ namespace SteeringCarFromAboveWPF
 
             planner_.NewSuccessorFound += planner_NewSuccessorFound;
 
-            Map map = new Map(1000, 1000);
+            //map = new Map(1000, 1000);
 
-            map.car = new PositionAndOrientation(_x: 500.0, _y: 100.0d, _angle: 90.0d);
-            map.parking = new PositionAndOrientation(_x: 1500.0, _y: 900, _angle: 90.0d);
-            map.obstacles.Add(new System.Drawing.Rectangle(350, 570, 300, 50));
-            map.obstacles.Add(new System.Drawing.Rectangle(350, 700, 300, 50));
-            map.obstacles.Add(new System.Drawing.Rectangle(150, 150, 50, 300));
-            map.obstacles.Add(new System.Drawing.Rectangle(150, 550, 50, 300));
+            //map.car = new PositionAndOrientation(_x: 500.0, _y: 100.0d, _angle: 90.0d);
+            //map.parking = new PositionAndOrientation(_x: 1500.0, _y: 900, _angle: 90.0d);
+            //map.obstacles.Add(new System.Drawing.Rectangle(350, 570, 300, 50));
+            //map.obstacles.Add(new System.Drawing.Rectangle(350, 700, 300, 50));
+            //map.obstacles.Add(new System.Drawing.Rectangle(150, 150, 50, 300));
+            //map.obstacles.Add(new System.Drawing.Rectangle(150, 550, 50, 300));
 
-            planner_.PrepareTracks(map);
-            Canvas_trackPlanner.UpdateLayout();
+            //planner_.PrepareTracks(map);
 
-            DrawMap(map);
+            //DrawMap(map);
         }
 
         // http://stackoverflow.com/questions/1118496/using-image-control-in-wpf-to-display-system-drawing-bitmap
@@ -90,7 +90,14 @@ namespace SteeringCarFromAboveWPF
                 baseImage = e.getImage();
                 this.Dispatcher.Invoke(new Action(() => image_baseImagePicker.Source = loadBitmap(baseImage)));
 
-                //image_baseImagePicker.Source = loadBitmap(baseImage);
+                MarkerFinder markerFinder = new MarkerFinder();
+                ObstaclesFinder obstaclesFinder = new ObstaclesFinder();
+                ObjectsToTrace objectsToTrace = new ObjectsToTrace(new List<string>(){"s1", "s2"}, "car", "parking");
+
+                MapBuilder builder = new MapBuilder(markerFinder, obstaclesFinder, objectsToTrace);
+
+                builder.BuildMap(baseImage.Size);
+
                 waitingForNextBaseImage = false;
             }
             Console.WriteLine("Frame processed");

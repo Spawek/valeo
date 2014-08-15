@@ -16,35 +16,35 @@ namespace SteeringCarFromAbove
             objectsToTrace_ = objectsToTrace;
         }
 
-        public Map BuildMap(Image image)
+        public Map BuildMap(System.Drawing.Size size)
         {
-            Map map = new Map(image.maxX, image.maxY);
-            map.car = markerFinder_.FindMarker(image, objectsToTrace_.carMarker);
-            map.parking = markerFinder_.FindMarker(image, objectsToTrace_.parkingMarker);
-            map.markers = objectsToTrace_.stableMarkers.ToDictionary(x => x, x => markerFinder_.FindMarker(image, x));
+            Map map = new Map(size.Width, size.Height);
+            map.car = markerFinder_.FindMarker(size, objectsToTrace_.carMarker);
+            map.parking = markerFinder_.FindMarker(size, objectsToTrace_.parkingMarker);
+            map.markers = objectsToTrace_.stableMarkers.ToDictionary(x => x, x => markerFinder_.FindMarker(size, x));
 
             return map;
         }
 
-        public void UpdateCarPosition(Map baseMap, Image image)
+        public void UpdateCarPosition(Map baseMap, System.Drawing.Size size)
         {
             PositionAndOrientation carPosition =
-                markerFinder_.FindMarker(image, objectsToTrace_.carMarker);
-            IDictionary<Marker, PositionAndOrientation> stableMarkersPosition =
-                objectsToTrace_.stableMarkers.ToDictionary(x => x, x => markerFinder_.FindMarker(image, x));
+                markerFinder_.FindMarker(size, objectsToTrace_.carMarker);
+            IDictionary<string, PositionAndOrientation> stableMarkersPosition =
+                objectsToTrace_.stableMarkers.ToDictionary(x => x, x => markerFinder_.FindMarker(size, x));
 
             double averageAngleChange =
                 stableMarkersPosition.Average(x => x.Value.angle - baseMap.markers[x.Key].angle);
-            IDictionary<Marker, PositionAndOrientation> stableMarkersPositionWithAngleCorrection =
+            IDictionary<string, PositionAndOrientation> stableMarkersPositionWithAngleCorrection =
                 stableMarkersPosition.ToDictionary(x => x.Key,
-                    x => TransformPositionOnAngleChange(x.Value, -averageAngleChange, image.maxX, image.maxY));
+                    x => TransformPositionOnAngleChange(x.Value, -averageAngleChange, size.Width, size.Height));
             double averageXChange =
                 stableMarkersPositionWithAngleCorrection.Average(x => x.Value.x - baseMap.markers[x.Key].x);
             double averageYChange =
                 stableMarkersPositionWithAngleCorrection.Average(x => x.Value.y - baseMap.markers[x.Key].y);
 
             PositionAndOrientation correctedCarPosition =
-                TransformPositionOnAngleChange(carPosition, -averageAngleChange, image.maxX, image.maxY);
+                TransformPositionOnAngleChange(carPosition, -averageAngleChange, size.Width, size.Height);
             correctedCarPosition.x -= averageXChange;
             correctedCarPosition.y -= averageYChange;
 

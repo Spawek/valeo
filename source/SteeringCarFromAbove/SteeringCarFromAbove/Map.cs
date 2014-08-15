@@ -24,7 +24,7 @@ namespace SteeringCarFromAbove
 
         public PositionAndOrientation car = null;
         public PositionAndOrientation parking = null;
-        public IDictionary<Marker, PositionAndOrientation> markers = null;
+        public IDictionary<string, PositionAndOrientation> markers = null;
         public List<Rectangle> obstacles = new List<Rectangle>();
     }
 

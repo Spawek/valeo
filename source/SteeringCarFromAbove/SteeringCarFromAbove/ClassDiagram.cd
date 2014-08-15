@@ -50,13 +50,13 @@
   <Class Name="SteeringCarFromAbove.TrackPlanner">
     <Position X="8.25" Y="7" Width="1.5" />
     <NestedTypes>
-      <Class Name="SteeringCarFromAbove.TrackPlanner.Obstacle" Collapsed="true">
+      <Class Name="SteeringCarFromAbove.TrackPlanner.BFSNode" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>TrackPlanner.cs</NewMemberFileName>
         </TypeIdentifier>
         <Lollipop Position="0.2" />
       </Class>
-      <Class Name="SteeringCarFromAbove.TrackPlanner.BFSNode" Collapsed="true">
+      <Class Name="SteeringCarFromAbove.TrackPlanner.Obstacle" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>TrackPlanner.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -75,7 +75,7 @@
       <FileName>Map.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SteeringCarFromAbove.Marker">
+  <Class Name="SteeringCarFromAbove.strondddddddddddddddd">
     <Position X="11.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>

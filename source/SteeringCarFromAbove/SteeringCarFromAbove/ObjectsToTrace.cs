@@ -7,16 +7,16 @@ namespace SteeringCarFromAbove
 {
     public struct ObjectsToTrace
     {
-        public ObjectsToTrace(List<Marker> _stableMarkers,
-            Marker _carMarker, Marker _parkingMarker)
+        public ObjectsToTrace(List<string> _stableMarkers,
+            string _carMarker, string _parkingMarker)
         {
             stableMarkers = _stableMarkers;
             carMarker = _carMarker;
             parkingMarker = _parkingMarker;
         }
 
-        public List<Marker> stableMarkers;
-        public Marker carMarker;
-        public Marker parkingMarker;
+        public List<string> stableMarkers;
+        public string carMarker;
+        public string parkingMarker;
     }
 }
