@@ -37,9 +37,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge.Video, Version=2.2.4.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\AForge\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow, Version=2.2.4.1, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\AForge\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -98,6 +107,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Glyph Recognition Studio\Glyph Recognition Studio.csproj">
+      <Project>{21240c95-b224-474a-92f1-71efba49606d}</Project>
+      <Name>Glyph Recognition Studio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GlyphRecognition\GlyphRecognition.csproj">
+      <Project>{0998fafd-4c8f-4c04-a5cc-03b856c804ad}</Project>
+      <Name>GlyphRecognition</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SteeringCarFromAbove\SteeringCarFromAbove.csproj">
       <Project>{c2012fec-e35c-4ab0-befe-0756db5480bd}</Project>
       <Name>SteeringCarFromAbove</Name>

@@ -46,6 +46,29 @@ namespace GlyphRecognitionStudio
 
         private const string ErrorBoxTitle = "Error";
 
+        public class FrameData : EventArgs
+        {
+            private List<ExtractedGlyphData> glyphs;
+            private Bitmap image;
+            
+            public FrameData(List<ExtractedGlyphData> _glyphs, Bitmap _image)
+            {
+                glyphs = _glyphs;
+                image = _image;
+            }
+
+            public List<ExtractedGlyphData> getGlyphs()
+            {
+                return glyphs;
+            }
+
+            public Bitmap getImage()
+            {
+                return image;
+            }
+        }
+        public event EventHandler<FrameData> frameProcessed;
+
         #region Configuration Option Names
         private const string activeDatabaseOption = "ActiveDatabase";
         private const string mainFormXOption = "MainFormX";
@@ -70,6 +93,11 @@ namespace GlyphRecognitionStudio
             bordersToolStripMenuItem.Tag = VisualizationType.BorderOnly;
             namesToolStripMenuItem.Tag   = VisualizationType.Name;
             imagesToolStripMenuItem.Tag  = VisualizationType.Image;
+        }
+
+        public void InjectVideoSource(IVideoSource source)
+        {
+            OpenVideoSource(source);
         }
 
         // On File->Exit menu item click
@@ -689,6 +717,12 @@ namespace GlyphRecognitionStudio
                 lock ( sync )
                 {
                     List<ExtractedGlyphData> glyphs = imageProcessor.ProcessImage( image );
+
+                    EventHandler<FrameData> temp = frameProcessed;
+                    if (temp != null)
+                    {
+                        temp(this, new FrameData(glyphs, image));
+                    }
                 }
             }
         }

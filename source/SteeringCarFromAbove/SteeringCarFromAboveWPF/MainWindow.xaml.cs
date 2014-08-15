@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SteeringCarFromAbove;
+using AForge.Video.DirectShow;
+using AForge.Video;
+using System.Runtime.InteropServices;
 
 namespace SteeringCarFromAboveWPF
 {
@@ -23,9 +26,15 @@ namespace SteeringCarFromAboveWPF
     {
         const int POSITION_STEP = 30;
         private TrackPlanner planner_ = null;
+        GlyphRecognitionStudio.MainForm glyphRecogniser;
+        IVideoSource videoSource = null;
 
         public MainWindow()
         {
+            glyphRecogniser = new GlyphRecognitionStudio.MainForm();
+            glyphRecogniser.frameProcessed += glyphRecogniser_frameProcessed;
+            glyphRecogniser.Show();
+
             InitializeComponent();
 
             planner_ = new TrackPlanner(
@@ -44,12 +53,37 @@ namespace SteeringCarFromAboveWPF
             map.obstacles.Add(new System.Drawing.Rectangle(150, 150, 50, 300));
             map.obstacles.Add(new System.Drawing.Rectangle(150, 550, 50, 300));
 
-            //List<PositionAndOrientation> track = planner.PlanTrack(map);
             planner_.PrepareTracks(map);
             Canvas_trackPlanner.UpdateLayout();
 
             DrawMap(map);
-            //DrawTrack(track);
+        }
+
+        // http://stackoverflow.com/questions/1118496/using-image-control-in-wpf-to-display-system-drawing-bitmap
+        [DllImport("gdi32")]
+        static extern int DeleteObject(IntPtr o);
+
+        public static BitmapSource loadBitmap(System.Drawing.Bitmap source)
+        {
+            IntPtr ip = source.GetHbitmap();
+            BitmapSource bs = null;
+            try
+            {
+                bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(ip,
+                   IntPtr.Zero, Int32Rect.Empty,
+                   System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+            }
+            finally
+            {
+                DeleteObject(ip);
+            }
+
+            return bs;
+        }
+
+        void glyphRecogniser_frameProcessed(object sender, GlyphRecognitionStudio.MainForm.FrameData e)
+        {
+            Console.WriteLine("Frame processed");
         }
 
         List<Line> lastTrack = new List<Line>();
@@ -98,7 +132,6 @@ namespace SteeringCarFromAboveWPF
                 Canvas.SetLeft(rect, obstacle.X);
                 Canvas.SetTop(rect, obstacle.Y);
                 rect.StrokeThickness = 3;
-                //rect.IsHitTestVisible = false;
 
                 Canvas_trackPlanner.Children.Add(rect);
             }
@@ -116,7 +149,6 @@ namespace SteeringCarFromAboveWPF
             Canvas.SetLeft(parking, map.parking.x - parkingSizeX / 2);
             Canvas.SetTop(parking, map.parking.y - parkingSizeY / 2);
             parking.StrokeThickness = 7;
-            //parking.IsHitTestVisible = false;
 
             Canvas_trackPlanner.Children.Add(parking);
         }
@@ -133,7 +165,6 @@ namespace SteeringCarFromAboveWPF
             Canvas.SetLeft(car, map.car.x - carSizeX / 2);
             Canvas.SetTop(car, map.car.y - carSizeY / 2);
             car.StrokeThickness = 7;
-            //car.IsHitTestVisible = false;
 
             Canvas_trackPlanner.Children.Add(car);
         }
@@ -147,7 +178,6 @@ namespace SteeringCarFromAboveWPF
             Canvas.SetLeft(border, 0);
             Canvas.SetTop(border, 0);
             border.StrokeThickness = 5;
-            //border.IsHitTestVisible = false;
 
             Canvas_trackPlanner.Children.Add(border);
         }
@@ -196,7 +226,6 @@ namespace SteeringCarFromAboveWPF
                 l.X2 = e.position.x - Math.Cos(e.position.angle / 180.0d * Math.PI) * LENGTH;
                 l.Y1 = e.position.y;
                 l.Y2 = e.position.y - Math.Sin(e.position.angle / 180.0d * Math.PI) * LENGTH;
-                //l.IsHitTestVisible = false;
 
                 Canvas_trackPlanner.Children.Add(l);
             }
@@ -224,6 +253,21 @@ namespace SteeringCarFromAboveWPF
                 new PositionAndOrientation(lastMouseDown_.X, lastMouseDown_.Y, angleInDegrees));
 
             DrawTrack(track);
+        }
+
+        private void button_ChangeVideoSource_Click(object sender, RoutedEventArgs e)
+        {
+            VideoCaptureDeviceForm form = new VideoCaptureDeviceForm();
+            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                videoSource = form.VideoDevice;
+                glyphRecogniser.InjectVideoSource(videoSource);
+            }
+            else
+            {
+                Console.WriteLine("Couldnt open video source");
+            }
+
         }
 
     }
