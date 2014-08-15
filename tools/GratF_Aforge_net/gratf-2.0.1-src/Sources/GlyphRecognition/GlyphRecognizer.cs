@@ -143,8 +143,8 @@ namespace AForge.Vision.GlyphRecognition
         // Private constructor
         private GlyphRecognizer( )
         {
-            blobCounter.MinHeight    = 16;
-            blobCounter.MinWidth     = 16;
+            blobCounter.MinHeight    = 8;
+            blobCounter.MinWidth     = 8;
             blobCounter.FilterBlobs  = true;
             blobCounter.ObjectsOrder = ObjectsOrder.Size;
 
