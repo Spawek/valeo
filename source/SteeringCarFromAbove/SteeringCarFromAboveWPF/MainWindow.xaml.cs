@@ -31,6 +31,7 @@ namespace SteeringCarFromAboveWPF
         bool waitingForNextBaseImage = false;
         System.Drawing.Bitmap baseImage = null;
         Map map = null;
+        MapBuilder mapBuilder = null;
 
         public MainWindow()
         {
@@ -39,6 +40,12 @@ namespace SteeringCarFromAboveWPF
             glyphRecogniser.Show();
 
             InitializeComponent();
+
+            MarkerFinder markerFinder = new MarkerFinder();
+            ObstaclesFinder obstaclesFinder = new ObstaclesFinder();
+            ObjectsToTrace objectsToTrace = new ObjectsToTrace(new List<string>() { "s1", "s2" }, "car", "parking");
+
+            mapBuilder = new MapBuilder(markerFinder, obstaclesFinder, objectsToTrace);
 
             planner_ = new TrackPlanner(
                 locationTolerance: POSITION_STEP - 1, angleTolerance: 9.0d,
@@ -90,13 +97,7 @@ namespace SteeringCarFromAboveWPF
                 baseImage = frameData.getImage();
                 this.Dispatcher.Invoke(new Action(() => image_baseImagePicker.Source = loadBitmap(baseImage)));
 
-                MarkerFinder markerFinder = new MarkerFinder();
-                ObstaclesFinder obstaclesFinder = new ObstaclesFinder();
-                ObjectsToTrace objectsToTrace = new ObjectsToTrace(new List<string>(){"s1", "s2"}, "car", "parking");
-
-                MapBuilder builder = new MapBuilder(markerFinder, obstaclesFinder, objectsToTrace);
-
-                map = builder.BuildMap(baseImage, frameData.getGlyphs());
+                map = mapBuilder.BuildMap(baseImage, frameData.getGlyphs());
 
                 if (map != null)
                 {
@@ -106,8 +107,19 @@ namespace SteeringCarFromAboveWPF
                     this.Dispatcher.Invoke(new Action(() => DrawMap(map)));
                 }
 
-                //waitingForNextBaseImage = false;
-                Console.WriteLine("New base frame acquired");
+                waitingForNextBaseImage = false;
+                Console.WriteLine("New base frame acquired!");
+            }
+            else
+            {
+                if (map != null)
+                {
+                    mapBuilder.UpdateCarPosition(map, frameData.getGlyphs());
+
+                    this.Dispatcher.Invoke(new Action(() => DrawMap(map)));
+
+                    Console.WriteLine("Car position updated!");
+                }
             }
             Console.WriteLine("Frame processed");
         }
@@ -145,10 +157,18 @@ namespace SteeringCarFromAboveWPF
             DrawCar(map);
             DrawParking(map);
             DrawObstacles(map);
+            Canvas_trackPlanner.UpdateLayout();
         }
 
+        private List<System.Windows.Shapes.Rectangle> lastObstacles = new List<Rectangle>();
         private void DrawObstacles(Map map)
         {
+            foreach (var obstacle in lastObstacles)
+            {
+                Canvas_trackPlanner.Children.Remove(obstacle);
+            }
+            lastObstacles.Clear();
+
             foreach (var obstacle in map.obstacles)
             {
                 System.Windows.Shapes.Rectangle rect = new System.Windows.Shapes.Rectangle();
@@ -160,6 +180,7 @@ namespace SteeringCarFromAboveWPF
                 rect.StrokeThickness = 3;
 
                 Canvas_trackPlanner.Children.Add(rect);
+                lastObstacles.Add(rect);
             }
         }
 
@@ -182,10 +203,14 @@ namespace SteeringCarFromAboveWPF
             }
         }
 
+        private System.Windows.Shapes.Rectangle lastCar = null;
         private void DrawCar(Map map)
         {
-            const double carSizeX = 25;
-            const double carSizeY = 55;
+            if (lastCar != null)
+                Canvas_trackPlanner.Children.Remove(lastCar);
+
+            const double carSizeX = 55;
+            const double carSizeY = 25;
 
             System.Windows.Shapes.Rectangle car = new System.Windows.Shapes.Rectangle();
             car.Stroke = new SolidColorBrush(Colors.Red);
@@ -195,11 +220,19 @@ namespace SteeringCarFromAboveWPF
             Canvas.SetTop(car, map.car.y - carSizeY / 2);
             car.StrokeThickness = 7;
 
+            //RotateTransform transform = new RotateTransform(map.car.angle, map.car.x, map.car.y);
+            //car.RenderTransform = transform;
+
             Canvas_trackPlanner.Children.Add(car);
+            lastCar = car;
         }
 
+        private System.Windows.Shapes.Rectangle lastBorder = null;
         private void DrawBorder(Map map)
         {
+            if (lastBorder != null)
+                Canvas_trackPlanner.Children.Remove(lastBorder);
+
             System.Windows.Shapes.Rectangle border = new System.Windows.Shapes.Rectangle();
             border.Stroke = new SolidColorBrush(Colors.Black);
             border.Width = map.mapSizeX;
@@ -209,6 +242,7 @@ namespace SteeringCarFromAboveWPF
             border.StrokeThickness = 5;
 
             Canvas_trackPlanner.Children.Add(border);
+            lastBorder = border;
         }
 
         //http://stackoverflow.com/questions/1335426/is-there-a-built-in-c-net-system-api-for-hsv-to-rgb
