@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AForge.Vision.GlyphRecognition;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,39 +17,60 @@ namespace SteeringCarFromAbove
             objectsToTrace_ = objectsToTrace;
         }
 
-        public Map BuildMap(System.Drawing.Size size)
+        public Map BuildMap(System.Drawing.Bitmap bitmap, List<ExtractedGlyphData> glyphs)
         {
-            Map map = new Map(size.Width, size.Height);
-            map.car = markerFinder_.FindMarker(size, objectsToTrace_.carMarker);
-            map.parking = markerFinder_.FindMarker(size, objectsToTrace_.parkingMarker);
-            map.markers = objectsToTrace_.stableMarkers.ToDictionary(x => x, x => markerFinder_.FindMarker(size, x));
+            Map map = new Map(bitmap.Size.Width, bitmap.Size.Height);
+
+            IDictionary<string, PositionAndOrientation> markersPositions = markerFinder_.FindMarkers(glyphs);
+
+            if (markersPositions.ContainsKey("car") && markersPositions.Count > 1)
+            {
+                map.car = markersPositions["car"];
+                map.markers = markersPositions.Where(x => x.Key.StartsWith("s")).ToDictionary(x => x.Key, x => x.Value);
+                map.obstacles = obstaclesFinder_.FindObstacles(bitmap);
+            }
+            else
+            {
+                //System.Windows.Forms.MessageBox.Show("not sufficient informations to build a map");
+
+                return null;
+            }
 
             return map;
         }
 
-        public void UpdateCarPosition(Map baseMap, System.Drawing.Size size)
+        public void UpdateCarPosition(Map baseMap, List<ExtractedGlyphData> glyphs)
         {
-            PositionAndOrientation carPosition =
-                markerFinder_.FindMarker(size, objectsToTrace_.carMarker);
-            IDictionary<string, PositionAndOrientation> stableMarkersPosition =
-                objectsToTrace_.stableMarkers.ToDictionary(x => x, x => markerFinder_.FindMarker(size, x));
+            IDictionary<string, PositionAndOrientation> markersPositions = markerFinder_.FindMarkers(glyphs);
 
-            double averageAngleChange =
-                stableMarkersPosition.Average(x => x.Value.angle - baseMap.markers[x.Key].angle);
-            IDictionary<string, PositionAndOrientation> stableMarkersPositionWithAngleCorrection =
-                stableMarkersPosition.ToDictionary(x => x.Key,
-                    x => TransformPositionOnAngleChange(x.Value, -averageAngleChange, size.Width, size.Height));
-            double averageXChange =
-                stableMarkersPositionWithAngleCorrection.Average(x => x.Value.x - baseMap.markers[x.Key].x);
-            double averageYChange =
-                stableMarkersPositionWithAngleCorrection.Average(x => x.Value.y - baseMap.markers[x.Key].y);
+            if (markersPositions.ContainsKey("car") && markersPositions.Count > 1)
+            {
+                PositionAndOrientation carPosition = markersPositions["car"];
+                IDictionary<string, PositionAndOrientation> stableMarkersPosition =
+                    markersPositions.Where(x => x.Key.StartsWith("s")).ToDictionary(x => x.Key, x => x.Value);
 
-            PositionAndOrientation correctedCarPosition =
-                TransformPositionOnAngleChange(carPosition, -averageAngleChange, size.Width, size.Height);
-            correctedCarPosition.x -= averageXChange;
-            correctedCarPosition.y -= averageYChange;
+                double averageAngleChange =
+                    stableMarkersPosition.Average(x => x.Value.angle - baseMap.markers[x.Key].angle);
+                IDictionary<string, PositionAndOrientation> stableMarkersPositionWithAngleCorrection =
+                    stableMarkersPosition.ToDictionary(x => x.Key,
+                        x => TransformPositionOnAngleChange(x.Value, -averageAngleChange, baseMap.mapSizeX, baseMap.mapSizeY));
+                double averageXChange =
+                    stableMarkersPositionWithAngleCorrection.Average(x => x.Value.x - baseMap.markers[x.Key].x);
+                double averageYChange =
+                    stableMarkersPositionWithAngleCorrection.Average(x => x.Value.y - baseMap.markers[x.Key].y);
 
-            baseMap.car = correctedCarPosition;
+                PositionAndOrientation correctedCarPosition =
+                    TransformPositionOnAngleChange(carPosition, -averageAngleChange, baseMap.mapSizeX, baseMap.mapSizeY);
+                correctedCarPosition.x -= averageXChange;
+                correctedCarPosition.y -= averageYChange;
+
+                baseMap.car = correctedCarPosition;
+                Console.WriteLine("car position has been updated");
+            }
+            else
+            {
+                Console.WriteLine("car position cannot be updated basing on current frame");
+            }
         }
 
         /// <summary>

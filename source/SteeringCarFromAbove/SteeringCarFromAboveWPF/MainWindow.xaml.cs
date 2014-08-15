@@ -83,11 +83,11 @@ namespace SteeringCarFromAboveWPF
             return bs;
         }
 
-        void glyphRecogniser_frameProcessed(object sender, GlyphRecognitionStudio.MainForm.FrameData e)
+        void glyphRecogniser_frameProcessed(object sender, GlyphRecognitionStudio.MainForm.FrameData frameData)
         {
             if (waitingForNextBaseImage)
             {
-                baseImage = e.getImage();
+                baseImage = frameData.getImage();
                 this.Dispatcher.Invoke(new Action(() => image_baseImagePicker.Source = loadBitmap(baseImage)));
 
                 MarkerFinder markerFinder = new MarkerFinder();
@@ -96,9 +96,18 @@ namespace SteeringCarFromAboveWPF
 
                 MapBuilder builder = new MapBuilder(markerFinder, obstaclesFinder, objectsToTrace);
 
-                builder.BuildMap(baseImage.Size);
+                map = builder.BuildMap(baseImage, frameData.getGlyphs());
 
-                waitingForNextBaseImage = false;
+                if (map != null)
+                {
+                    this.Dispatcher.Invoke(new Action(() =>
+                        TextBlock_marksInfo.Text = String.Format("car =\nx: {0}\ny:{1}\na:{2}", map.car.x, map.car.y, map.car.angle)));
+
+                    this.Dispatcher.Invoke(new Action(() => DrawMap(map)));
+                }
+
+                //waitingForNextBaseImage = false;
+                Console.WriteLine("New base frame acquired");
             }
             Console.WriteLine("Frame processed");
         }
@@ -156,18 +165,21 @@ namespace SteeringCarFromAboveWPF
 
         private void DrawParking(Map map)
         {
-            const double parkingSizeX = 38;
-            const double parkingSizeY = 70;
+            if (map.parking != null)
+            {
+                const double parkingSizeX = 38;
+                const double parkingSizeY = 70;
 
-            System.Windows.Shapes.Rectangle parking = new System.Windows.Shapes.Rectangle();
-            parking.Stroke = new SolidColorBrush(Colors.Red);
-            parking.Width = parkingSizeX;
-            parking.Height = parkingSizeY;
-            Canvas.SetLeft(parking, map.parking.x - parkingSizeX / 2);
-            Canvas.SetTop(parking, map.parking.y - parkingSizeY / 2);
-            parking.StrokeThickness = 7;
+                System.Windows.Shapes.Rectangle parking = new System.Windows.Shapes.Rectangle();
+                parking.Stroke = new SolidColorBrush(Colors.Red);
+                parking.Width = parkingSizeX;
+                parking.Height = parkingSizeY;
+                Canvas.SetLeft(parking, map.parking.x - parkingSizeX / 2);
+                Canvas.SetTop(parking, map.parking.y - parkingSizeY / 2);
+                parking.StrokeThickness = 7;
 
-            Canvas_trackPlanner.Children.Add(parking);
+                Canvas_trackPlanner.Children.Add(parking);
+            }
         }
 
         private void DrawCar(Map map)

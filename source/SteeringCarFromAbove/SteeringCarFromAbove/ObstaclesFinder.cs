@@ -7,9 +7,9 @@ namespace SteeringCarFromAbove
 {
     public class ObstaclesFinder
     {
-        public List<System.Drawing.Rectangle> FindObstacles(System.Drawing.Size size)
+        public List<System.Drawing.Rectangle> FindObstacles(System.Drawing.Bitmap bitmap)
         {
-            throw new System.NotImplementedException();
+            return new List<System.Drawing.Rectangle>();
         }
     }
 }
