@@ -28,6 +28,8 @@ namespace SteeringCarFromAboveWPF
         private TrackPlanner planner_ = null;
         GlyphRecognitionStudio.MainForm glyphRecogniser;
         IVideoSource videoSource = null;
+        bool waitingForNextBaseImage = false;
+        System.Drawing.Bitmap baseImage = null;
 
         public MainWindow()
         {
@@ -83,6 +85,14 @@ namespace SteeringCarFromAboveWPF
 
         void glyphRecogniser_frameProcessed(object sender, GlyphRecognitionStudio.MainForm.FrameData e)
         {
+            if (waitingForNextBaseImage)
+            {
+                baseImage = e.getImage();
+                this.Dispatcher.Invoke(new Action(() => image_baseImagePicker.Source = loadBitmap(baseImage)));
+
+                //image_baseImagePicker.Source = loadBitmap(baseImage);
+                waitingForNextBaseImage = false;
+            }
             Console.WriteLine("Frame processed");
         }
 
@@ -268,6 +278,11 @@ namespace SteeringCarFromAboveWPF
                 Console.WriteLine("Couldnt open video source");
             }
 
+        }
+
+        private void button_GetNextImage_Click(object sender, RoutedEventArgs e)
+        {
+            waitingForNextBaseImage = true;
         }
 
     }

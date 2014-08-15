@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="919" Width="1435">
     <Grid>
-        <Button x:Name="button_ChangeVideoSource" Content="change&#xD;&#xA;video&#xD;&#xA;souce" HorizontalAlignment="Left" Margin="1237,68,0,0" VerticalAlignment="Top" Width="75" Click="button_ChangeVideoSource_Click"/>
+        <Button x:Name="button_ChangeVideoSource" Content="Change&#xD;&#xA;video&#xD;&#xA;souce" HorizontalAlignment="Left" Margin="1127,71,0,0" VerticalAlignment="Top" Width="75" Click="button_ChangeVideoSource_Click" HorizontalContentAlignment="Center"/>
         <TabControl HorizontalAlignment="Left" Height="546" Margin="25,10,0,0" VerticalAlignment="Top" Width="1040">
             <TabItem Header="Track Planner">
                 <Grid Background="#FFE5E5E5">
@@ -12,8 +12,11 @@
                     </Border>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Base Image Picker">
+                <Grid Background="#FFE5E5E5">
+                    <Image x:Name="image_baseImagePicker" HorizontalAlignment="Left" Height="498" Margin="10,10,0,0" VerticalAlignment="Top" Width="830"/>
+                    <Button x:Name="button_GetNextImage" Content="Get next&#xD;&#xA;image" HorizontalAlignment="Left" Margin="923,41,0,0" VerticalAlignment="Top" Width="75" HorizontalContentAlignment="Center" Click="button_GetNextImage_Click"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
