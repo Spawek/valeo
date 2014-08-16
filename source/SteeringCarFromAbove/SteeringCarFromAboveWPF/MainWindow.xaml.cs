@@ -104,8 +104,7 @@ namespace SteeringCarFromAboveWPF
 
                 if (map != null)
                 {
-                    this.Dispatcher.Invoke(new Action(() =>
-                        TextBlock_marksInfo.Text = String.Format("car =\nx: {0}\ny:{1}\na:{2}", map.car.x, map.car.y, map.car.angle)));
+                    this.Dispatcher.Invoke(new Action(() => TextBlock_marksInfo.Text = map.ToString()));
 
                     this.Dispatcher.Invoke(new Action(() => DrawMap(map)));
 
@@ -250,8 +249,8 @@ namespace SteeringCarFromAboveWPF
 
             System.Windows.Shapes.Rectangle border = new System.Windows.Shapes.Rectangle();
             border.Stroke = new SolidColorBrush(Colors.Black);
-            border.Width = map.mapSizeX;
-            border.Height = map.mapSizeY;
+            border.Width = map.mapWidth;
+            border.Height = map.mapHeight;
             Canvas.SetLeft(border, 0);
             Canvas.SetTop(border, 0);
             border.StrokeThickness = 5;
@@ -341,6 +340,8 @@ namespace SteeringCarFromAboveWPF
                     break;
                 case TrackPlannerMode.REMOVING_OBSTACLES:
                     break;
+                case TrackPlannerMode.NONE:
+                    break;
                 default:
                     break;
             }
@@ -381,23 +382,37 @@ namespace SteeringCarFromAboveWPF
             }
         }
 
-        private enum TrackPlannerMode { SETTING_PARKING_PLACE, ADDING_OBSTACLES, REMOVING_OBSTACLES }
-        private TrackPlannerMode trackPlannerMode = TrackPlannerMode.ADDING_OBSTACLES;
+        private enum TrackPlannerMode { SETTING_PARKING_PLACE, ADDING_OBSTACLES, REMOVING_OBSTACLES, NONE }
+        private TrackPlannerMode trackPlannerMode = TrackPlannerMode.NONE;
 
         private void button_AddObstacle_Click(object sender, RoutedEventArgs e)
         {
-            trackPlannerMode = TrackPlannerMode.ADDING_OBSTACLES;
-            button_AddObstacle.IsEnabled = false;
-            button_RemoveObstacle.IsEnabled = true;
-            button_SetParkingPlace.IsEnabled = true;
+            if (trackPrepared)
+            {
+                trackPlannerMode = TrackPlannerMode.ADDING_OBSTACLES;
+                button_AddObstacle.IsEnabled = false;
+                button_RemoveObstacle.IsEnabled = true;
+                button_SetParkingPlace.IsEnabled = true;
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Prepare track first!");
+            }
         }
 
         private void button_RemoveObstacle_Click(object sender, RoutedEventArgs e)
         {
-            trackPlannerMode = TrackPlannerMode.REMOVING_OBSTACLES;
-            button_AddObstacle.IsEnabled = true;
-            button_RemoveObstacle.IsEnabled = false;
-            button_SetParkingPlace.IsEnabled = true;
+            if (trackPrepared)
+            {
+                trackPlannerMode = TrackPlannerMode.REMOVING_OBSTACLES;
+                button_AddObstacle.IsEnabled = true;
+                button_RemoveObstacle.IsEnabled = false;
+                button_SetParkingPlace.IsEnabled = true;
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Prepare track first!");
+            }
         }
 
         private void button_SetParkingPlace_Click(object sender, RoutedEventArgs e)

@@ -27,5 +27,10 @@ namespace SteeringCarFromAbove
             get { return __angle__; }
             set { __angle__ = MathTools.Mod(value, 360.0f); }
         }
+
+        public override string ToString()
+        {
+            return String.Format("x:{0}\ny:{1}\na:{2}", x, y, angle);
+        }
     }
 }

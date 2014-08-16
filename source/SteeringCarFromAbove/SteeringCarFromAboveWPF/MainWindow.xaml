@@ -6,15 +6,16 @@
         <TabControl HorizontalAlignment="Left" Height="546" Margin="25,10,0,0" VerticalAlignment="Top" Width="1132">
             <TabItem Header="Track Planner">
                 <Grid Background="#FFE5E5E5">
-                    <Rectangle HorizontalAlignment="Left" Height="188" Margin="991,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="125"/>
+                    <Rectangle HorizontalAlignment="Left" Height="179" Margin="991,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="125"/>
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="477" Margin="15,10,0,0" VerticalAlignment="Top" Width="971">
                         <Canvas x:Name="Canvas_trackPlanner" HorizontalAlignment="Right" Width="975" MouseDown="Canvas_trackPlanner_MouseDown" MouseUp="Canvas_trackPlanner_MouseUp" Margin="0,9,9,9"/>
                     </Border>
-                    <Button x:Name="button_AddObstacle" Content="Add obstacle" Margin="1001,112,20,0" VerticalAlignment="Top" Height="36" Click="button_AddObstacle_Click" IsEnabled="False"/>
-                    <Button x:Name="button_SetParkingPlace" Content="Set parking&#xA;    place" Margin="1001,55,20,0" VerticalAlignment="Top" Height="52" Click="button_SetParkingPlace_Click"/>
-                    <Button x:Name="button_RemoveObstacle" Content="Remove obstacle" Margin="1001,153,20,0" VerticalAlignment="Top" Height="36" Click="button_RemoveObstacle_Click"/>
-                    <Label Content=" Mode selection" HorizontalAlignment="Left" Margin="1001,24,0,0" VerticalAlignment="Top" Width="101"/>
-                    <Button x:Name="button_PrepareTrack" Content="Prepare track" HorizontalAlignment="Left" Margin="1013,463,0,0" VerticalAlignment="Top" Width="85" Click="button_PrepareTrack_Click"/>
+                    <Button x:Name="button_AddObstacle" Content="Add obstacle" Margin="1001,103,20,0" VerticalAlignment="Top" Height="36" Click="button_AddObstacle_Click"/>
+                    <Button x:Name="button_SetParkingPlace" Content="Set parking&#xA;    place" Margin="1001,46,20,0" VerticalAlignment="Top" Height="52" Click="button_SetParkingPlace_Click"/>
+                    <Button x:Name="button_RemoveObstacle" Content="Remove obstacle" Margin="1001,144,20,0" VerticalAlignment="Top" Height="36" Click="button_RemoveObstacle_Click"/>
+                    <Label Content=" Mode selection" HorizontalAlignment="Left" Margin="1001,15
+                           ,0,0" VerticalAlignment="Top" Width="101"/>
+                    <Button x:Name="button_PrepareTrack" Content="Prepare track" HorizontalAlignment="Left" Margin="1001,450,0,0" VerticalAlignment="Top" Width="105" Click="button_PrepareTrack_Click" Height="36"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Base Image Picker">
@@ -22,7 +23,7 @@
                     <Button x:Name="button_GetNextImage" Content="   Get next&#xA;base image" HorizontalAlignment="Left" Margin="856,10,0,0" VerticalAlignment="Top" Width="114" HorizontalContentAlignment="Center" Click="button_GetNextImage_Click"/>
                     <Button x:Name="button_ChangeVideoSource" Content="Set video&#xA;   souce" HorizontalAlignment="Left" Margin="975,10,0,0" VerticalAlignment="Top" Width="100" Click="button_ChangeVideoSource_Click" HorizontalContentAlignment="Center"/>
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="457" Margin="856,51,0,0" VerticalAlignment="Top" Width="219">
-                        <TextBlock x:Name="TextBlock_marksInfo" HorizontalAlignment="Left" Margin="9,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="437" Width="199" RenderTransformOrigin="0.5,0.5"><Run Language="pl-pl" Text="Car info"/></TextBlock>
+                        <TextBlock x:Name="TextBlock_marksInfo" HorizontalAlignment="Left" Margin="9,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="437" Width="199" RenderTransformOrigin="0.5,0.5"><Run Language="pl-pl" Text="Markers info"/></TextBlock>
                     </Border>
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="498" Margin="10,10,0,0" VerticalAlignment="Top" Width="841">
                         <Image x:Name="image_baseImagePicker" HorizontalAlignment="Left" Height="478" Margin="9,9,0,0" VerticalAlignment="Top" Width="821"/>

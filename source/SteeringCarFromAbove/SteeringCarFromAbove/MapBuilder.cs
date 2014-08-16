@@ -43,7 +43,8 @@ namespace SteeringCarFromAbove
         {
             IDictionary<string, PositionAndOrientation> markersPositions = markerFinder_.FindMarkers(glyphs);
 
-            if (markersPositions.ContainsKey("car") && baseMap.markers.All(x => markersPositions.ContainsKey(x.Key)))
+            if (markersPositions.ContainsKey("car") && markersPositions.Count > 1 &&
+                markersPositions.All(x => x.Key == "car" || baseMap.markers.ContainsKey(x.Key)))
             {
                 PositionAndOrientation carPosition = markersPositions["car"];
                 IDictionary<string, PositionAndOrientation> stableMarkersPosition =
@@ -53,14 +54,14 @@ namespace SteeringCarFromAbove
                     stableMarkersPosition.Average(x => x.Value.angle - baseMap.markers[x.Key].angle);
                 IDictionary<string, PositionAndOrientation> stableMarkersPositionWithAngleCorrection =
                     stableMarkersPosition.ToDictionary(x => x.Key,
-                        x => TransformPositionOnAngleChange(x.Value, -averageAngleChange, baseMap.mapSizeX, baseMap.mapSizeY));
+                        x => TransformPositionOnAngleChange(x.Value, -averageAngleChange, baseMap.mapWidth, baseMap.mapHeight));
                 double averageXChange =
                     stableMarkersPositionWithAngleCorrection.Average(x => x.Value.x - baseMap.markers[x.Key].x);
                 double averageYChange =
                     stableMarkersPositionWithAngleCorrection.Average(x => x.Value.y - baseMap.markers[x.Key].y);
 
                 PositionAndOrientation correctedCarPosition =
-                    TransformPositionOnAngleChange(carPosition, -averageAngleChange, baseMap.mapSizeX, baseMap.mapSizeY);
+                    TransformPositionOnAngleChange(carPosition, -averageAngleChange, baseMap.mapWidth, baseMap.mapHeight);
                 correctedCarPosition.x -= averageXChange;
                 correctedCarPosition.y -= averageYChange;
 
