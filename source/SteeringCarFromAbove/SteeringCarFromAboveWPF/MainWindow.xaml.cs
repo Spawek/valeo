@@ -209,7 +209,7 @@ namespace SteeringCarFromAboveWPF
             }
         }
 
-        private System.Windows.Shapes.Rectangle lastCar = null;
+        private System.Windows.Shapes.Polyline lastCar = null;
         private void DrawCar(Map map)
         {
             if (lastCar != null)
@@ -218,20 +218,23 @@ namespace SteeringCarFromAboveWPF
             const double carSizeX = 55;
             const double carSizeY = 25;
 
-            System.Windows.Shapes.Rectangle car = new System.Windows.Shapes.Rectangle();
-            car.Stroke = new SolidColorBrush(Colors.Red);
-            car.Width = carSizeX;
-            car.Height = carSizeY;
+            System.Windows.Shapes.Polyline car = new Polyline();
             car.StrokeThickness = 7;
+            car.Stroke = new SolidColorBrush(Colors.Red);
+            car.Points = new PointCollection() { 
+                new Point(map.car.x - carSizeX / 2, map.car.y - carSizeY / 2),
+                new Point(map.car.x + carSizeX / 2, map.car.y - carSizeY / 2),
+                new Point(map.car.x + carSizeX / 2, map.car.y + carSizeY / 2),
+                new Point(map.car.x - carSizeX / 2, map.car.y + carSizeY / 2)};
 
-            //RotateTransform transform = new RotateTransform(map.car.angle, map.car.x, map.car.y);
-            //car.RenderTransform = transform;
+            RotateTransform rt = new RotateTransform(map.car.angle, map.car.x, map.car.y);
 
-            Canvas.SetLeft(car, map.car.x - carSizeX / 2);
-            Canvas.SetTop(car, map.car.y - carSizeY / 2);
-
+            car.Points = new PointCollection(car.Points.Select(x => rt.Transform(x)));
             Canvas_trackPlanner.Children.Add(car);
+
             lastCar = car;
+
+            Canvas_trackPlanner.UpdateLayout();
         }
 
         private System.Windows.Shapes.Rectangle lastBorder = null;
