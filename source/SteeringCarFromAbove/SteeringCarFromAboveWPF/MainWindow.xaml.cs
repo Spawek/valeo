@@ -217,7 +217,7 @@ namespace SteeringCarFromAboveWPF
 
             const double CAR_WIDTH = 55;
             const double CAR_HEIGHT = 25;
-            const double FRONT_SHOWER_LENTH = 4;
+            const double FRONT_SHOWER_LENTH = 10;
 
             System.Windows.Shapes.Polyline car = new Polyline();
             car.StrokeThickness = 7;
