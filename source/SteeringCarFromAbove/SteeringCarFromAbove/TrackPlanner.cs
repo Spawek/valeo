@@ -102,8 +102,7 @@ namespace SteeringCarFromAbove
         private BFSNode startPoint_ = null;
         public void PrepareTracks(Map map)
         {
-            if (seen_.GetAllObjects().Count != 0)
-                throw new ApplicationException();
+            seen_.Clear();
 
             preparedMap_ = map; // hack a bit - we r holding state here
 

@@ -123,7 +123,7 @@ namespace SteeringCarFromAboveWPF
 
                     this.Dispatcher.Invoke(new Action(() => DrawMap(map)));
 
-                    Console.WriteLine("Car position updated!");
+                    Console.WriteLine("Car position updated!"
                 }
             }
             Console.WriteLine("Frame processed");
@@ -237,8 +237,6 @@ namespace SteeringCarFromAboveWPF
             Canvas_trackPlanner.Children.Add(car);
 
             lastCar = car;
-
-            Canvas_trackPlanner.UpdateLayout();
         }
 
         private System.Windows.Shapes.Rectangle lastBorder = null;
@@ -297,7 +295,7 @@ namespace SteeringCarFromAboveWPF
                 Line l = new Line();
 
                 const double LENGTH = POSITION_STEP;
-                l.Stroke = new SolidColorBrush(ColorFromHSV((25.0d * predecessorsCount) % 360.0d, 0.3d, 1.0d)); //Brushes.LightSteelBlue;
+                l.Stroke = new SolidColorBrush(ColorFromHSV((25.0d * predecessorsCount) % 360.0d, 0.3d, 1.0d));
                 l.StrokeThickness = 1;
                 l.X1 = e.position.x;
                 l.X2 = e.position.x - Math.Cos(e.position.angle / 180.0d * Math.PI) * LENGTH;
@@ -313,7 +311,6 @@ namespace SteeringCarFromAboveWPF
         private void Canvas_trackPlanner_MouseDown(object sender, MouseButtonEventArgs e)
         {
             lastMouseDown_ = e.GetPosition(Canvas_trackPlanner);
-            Console.WriteLine(String.Format("Click down: {0}, {1}", e.GetPosition(Canvas_trackPlanner).X, e.GetPosition(Canvas_trackPlanner).Y));
         }
 
         private void Canvas_trackPlanner_MouseUp(object sender, MouseButtonEventArgs e)
@@ -323,7 +320,6 @@ namespace SteeringCarFromAboveWPF
                 case TrackPlannerMode.SETTING_PARKING_PLACE:
                     {
                         Point mouseUp = e.GetPosition(Canvas_trackPlanner);
-                        Console.WriteLine(String.Format("Click up: {0}, {1}", e.GetPosition(Canvas_trackPlanner).X, e.GetPosition(Canvas_trackPlanner).Y));
 
                         double deltaY = mouseUp.Y - lastMouseDown_.Y;
                         double deltaX = mouseUp.X - lastMouseDown_.X;
@@ -337,8 +333,26 @@ namespace SteeringCarFromAboveWPF
                     }
                     break;
                 case TrackPlannerMode.ADDING_OBSTACLES:
+                    {
+                        Point mouseUp = e.GetPosition(Canvas_trackPlanner);
+
+                        int deltaY = (int)Math.Abs(mouseUp.Y - lastMouseDown_.Y);
+                        int deltaX = (int)Math.Abs(mouseUp.X - lastMouseDown_.X);
+
+                        int minY = (int)Math.Min(mouseUp.Y, lastMouseDown_.Y);
+                        int minX = (int)Math.Min(mouseUp.X, lastMouseDown_.X);
+
+                        map.obstacles.Add(new System.Drawing.Rectangle(minX, minY, deltaX, deltaY));
+
+                        DrawMap(map);
+                    }
                     break;
                 case TrackPlannerMode.REMOVING_OBSTACLES:
+                    {
+                        Point mouseUp = e.GetPosition(Canvas_trackPlanner);
+
+                        map.obstacles.RemoveAll(x => x.Contains((int)mouseUp.X, (int)mouseUp.Y));
+                    }
                     break;
                 case TrackPlannerMode.NONE:
                     break;
@@ -387,7 +401,7 @@ namespace SteeringCarFromAboveWPF
 
         private void button_AddObstacle_Click(object sender, RoutedEventArgs e)
         {
-            if (trackPrepared)
+            if (map != null)
             {
                 trackPlannerMode = TrackPlannerMode.ADDING_OBSTACLES;
                 button_AddObstacle.IsEnabled = false;
@@ -402,7 +416,7 @@ namespace SteeringCarFromAboveWPF
 
         private void button_RemoveObstacle_Click(object sender, RoutedEventArgs e)
         {
-            if (trackPrepared)
+            if (map != null)
             {
                 trackPlannerMode = TrackPlannerMode.REMOVING_OBSTACLES;
                 button_AddObstacle.IsEnabled = true;
