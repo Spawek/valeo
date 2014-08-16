@@ -215,17 +215,22 @@ namespace SteeringCarFromAboveWPF
             if (lastCar != null)
                 Canvas_trackPlanner.Children.Remove(lastCar);
 
-            const double carSizeX = 55;
-            const double carSizeY = 25;
+            const double CAR_WIDTH = 55;
+            const double CAR_HEIGHT = 25;
+            const double FRONT_SHOWER_LENTH = 4;
 
             System.Windows.Shapes.Polyline car = new Polyline();
             car.StrokeThickness = 7;
             car.Stroke = new SolidColorBrush(Colors.Red);
             car.Points = new PointCollection() { 
-                new Point(map.car.x - carSizeX / 2, map.car.y - carSizeY / 2),
-                new Point(map.car.x + carSizeX / 2, map.car.y - carSizeY / 2),
-                new Point(map.car.x + carSizeX / 2, map.car.y + carSizeY / 2),
-                new Point(map.car.x - carSizeX / 2, map.car.y + carSizeY / 2)};
+                new Point(map.car.x + CAR_WIDTH / 2, map.car.y + CAR_HEIGHT / 2),
+                new Point(map.car.x - CAR_WIDTH / 2, map.car.y + CAR_HEIGHT / 2),
+                new Point(map.car.x - CAR_WIDTH / 2, map.car.y - CAR_HEIGHT / 2),
+                new Point(map.car.x + CAR_WIDTH / 2, map.car.y - CAR_HEIGHT / 2),
+                new Point(map.car.x + CAR_WIDTH / 2, map.car.y),
+                new Point(map.car.x + CAR_WIDTH + FRONT_SHOWER_LENTH / 2, map.car.y),
+                new Point(map.car.x + CAR_WIDTH / 2, map.car.y),
+                new Point(map.car.x + CAR_WIDTH / 2, map.car.y + CAR_HEIGHT / 2)};
 
             RotateTransform rt = new RotateTransform(map.car.angle, map.car.x, map.car.y);
 
@@ -314,18 +319,32 @@ namespace SteeringCarFromAboveWPF
 
         private void Canvas_trackPlanner_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Point mouseUp = e.GetPosition(Canvas_trackPlanner);
-            Console.WriteLine(String.Format("Click up: {0}, {1}", e.GetPosition(Canvas_trackPlanner).X, e.GetPosition(Canvas_trackPlanner).Y));
+            switch (trackPlannerMode)
+            {
+                case TrackPlannerMode.SETTING_PARKING_PLACE:
+                    {
+                        Point mouseUp = e.GetPosition(Canvas_trackPlanner);
+                        Console.WriteLine(String.Format("Click up: {0}, {1}", e.GetPosition(Canvas_trackPlanner).X, e.GetPosition(Canvas_trackPlanner).Y));
 
-            double deltaY = mouseUp.Y - lastMouseDown_.Y;
-            double deltaX = mouseUp.X - lastMouseDown_.X;
+                        double deltaY = mouseUp.Y - lastMouseDown_.Y;
+                        double deltaX = mouseUp.X - lastMouseDown_.X;
 
-            double angleInDegrees = Math.Atan2(deltaY, deltaX) * 180 / Math.PI;
+                        double angleInDegrees = Math.Atan2(deltaY, deltaX) * 180 / Math.PI;
 
-            List<PositionAndOrientation> track = planner_.GetTrackFromPreparedPlanner(
-                new PositionAndOrientation(lastMouseDown_.X, lastMouseDown_.Y, angleInDegrees));
+                        List<PositionAndOrientation> track = planner_.GetTrackFromPreparedPlanner(
+                            new PositionAndOrientation(lastMouseDown_.X, lastMouseDown_.Y, angleInDegrees));
 
-            DrawTrack(track);
+                        DrawTrack(track);
+                    }
+                    break;
+                case TrackPlannerMode.ADDING_OBSTACLES:
+                    break;
+                case TrackPlannerMode.REMOVING_OBSTACLES:
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         private void button_ChangeVideoSource_Click(object sender, RoutedEventArgs e)
@@ -348,9 +367,53 @@ namespace SteeringCarFromAboveWPF
             waitingForNextBaseImage = true;
         }
 
+        private bool trackPrepared = false;
         private void button_PrepareTrack_Click(object sender, RoutedEventArgs e)
         {
-            planner_.PrepareTracks(map);
+            if (map != null)
+            {
+                planner_.PrepareTracks(map);
+                trackPrepared = true;
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Get base map first!");
+            }
+        }
+
+        private enum TrackPlannerMode { SETTING_PARKING_PLACE, ADDING_OBSTACLES, REMOVING_OBSTACLES }
+        private TrackPlannerMode trackPlannerMode = TrackPlannerMode.ADDING_OBSTACLES;
+
+        private void button_AddObstacle_Click(object sender, RoutedEventArgs e)
+        {
+            trackPlannerMode = TrackPlannerMode.ADDING_OBSTACLES;
+            button_AddObstacle.IsEnabled = false;
+            button_RemoveObstacle.IsEnabled = true;
+            button_SetParkingPlace.IsEnabled = true;
+        }
+
+        private void button_RemoveObstacle_Click(object sender, RoutedEventArgs e)
+        {
+            trackPlannerMode = TrackPlannerMode.REMOVING_OBSTACLES;
+            button_AddObstacle.IsEnabled = true;
+            button_RemoveObstacle.IsEnabled = false;
+            button_SetParkingPlace.IsEnabled = true;
+        }
+
+        private void button_SetParkingPlace_Click(object sender, RoutedEventArgs e)
+        {
+            if (trackPrepared)
+            {
+                trackPlannerMode = TrackPlannerMode.SETTING_PARKING_PLACE;
+                button_AddObstacle.IsEnabled = true;
+                button_RemoveObstacle.IsEnabled = true;
+                button_SetParkingPlace.IsEnabled = false;
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Prepare track first!");
+            }
+
         }
 
     }
