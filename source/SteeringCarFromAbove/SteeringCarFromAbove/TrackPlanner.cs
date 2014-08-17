@@ -44,7 +44,10 @@ namespace SteeringCarFromAbove
             public bool HasMoved { get { return false; } }
         }
 
-        public event EventHandler<BFSNode> NewSuccessorFound;
+        public List<BFSNode> GetSeen()
+        {
+            return seen_.GetAllObjects();
+        }
 
         public TrackPlanner(int locationTolerance, double angleTolerance, double positionStep, double angleStep,
             double mapSizeX, double mapSizeY)
@@ -189,11 +192,6 @@ namespace SteeringCarFromAbove
                 {
                     BFSNode newNode = new BFSNode(newPosition, predecessor);
                     successors.Add(new BFSNode(newPosition, predecessor));
-                    EventHandler<BFSNode> temp = NewSuccessorFound;
-                    if (temp != null)
-                    {
-                        temp(this, newNode);
-                    }
                 }
             }
 

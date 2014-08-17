@@ -54,21 +54,6 @@ namespace SteeringCarFromAboveWPF
                 locationTolerance: POSITION_STEP - 1, angleTolerance: 9.0d,
                 positionStep: (int)POSITION_STEP, angleStep: 10.0d,
                 mapSizeX: 1000.0d, mapSizeY: 1000.0d);
-
-            planner_.NewSuccessorFound += planner_NewSuccessorFound;
-
-            //map = new Map(1000, 1000);
-
-            //map.car = new PositionAndOrientation(_x: 500.0, _y: 100.0d, _angle: 90.0d);
-            //map.parking = new PositionAndOrientation(_x: 1500.0, _y: 900, _angle: 90.0d);
-            //map.obstacles.Add(new System.Drawing.Rectangle(350, 570, 300, 50));
-            //map.obstacles.Add(new System.Drawing.Rectangle(350, 700, 300, 50));
-            //map.obstacles.Add(new System.Drawing.Rectangle(150, 150, 50, 300));
-            //map.obstacles.Add(new System.Drawing.Rectangle(150, 550, 50, 300));
-
-            //planner_.PrepareTracks(map);
-
-            //DrawMap(map);
         }
 
         // http://stackoverflow.com/questions/1118496/using-image-control-in-wpf-to-display-system-drawing-bitmap
@@ -123,7 +108,7 @@ namespace SteeringCarFromAboveWPF
 
                     this.Dispatcher.Invoke(new Action(() => DrawMap(map)));
 
-                    Console.WriteLine("Car position updated!"
+                    Console.WriteLine("Car position updated!");
                 }
             }
             Console.WriteLine("Frame processed");
@@ -283,26 +268,38 @@ namespace SteeringCarFromAboveWPF
                 return Color.FromArgb(255, v, p, q);
         }
 
-        private int counter = 0;
-        void planner_NewSuccessorFound(object sender, SteeringCarFromAbove.TrackPlanner.BFSNode e)
+        private List<Line> lastSeenNodesLines = new List<Line>();
+        void DrawTrackPlannerSeenNodes(List<TrackPlanner.BFSNode> nodes)
         {
-            if (counter++ % 3 == 0)
+            foreach (Line l in lastSeenNodesLines)
             {
-                int predecessorsCount = 0;
-                SteeringCarFromAbove.TrackPlanner.BFSNode curr = e;
-                while ((curr = curr.predecessor) != null) predecessorsCount++;
+                Canvas_trackPlanner.Children.Remove(l);
+            }
+            lastSeenNodesLines.Clear();
 
-                Line l = new Line();
+            int counter = 0;
+            foreach (TrackPlanner.BFSNode node in nodes)
+            {
+                if (counter++ % 5 == 0)
+                {
+                    int predecessorsCount = 0;
+                    SteeringCarFromAbove.TrackPlanner.BFSNode curr = node;
+                    while ((curr = curr.predecessor) != null) predecessorsCount++;
 
-                const double LENGTH = POSITION_STEP;
-                l.Stroke = new SolidColorBrush(ColorFromHSV((25.0d * predecessorsCount) % 360.0d, 0.3d, 1.0d));
-                l.StrokeThickness = 1;
-                l.X1 = e.position.x;
-                l.X2 = e.position.x - Math.Cos(e.position.angle / 180.0d * Math.PI) * LENGTH;
-                l.Y1 = e.position.y;
-                l.Y2 = e.position.y - Math.Sin(e.position.angle / 180.0d * Math.PI) * LENGTH;
+                    Line l = new Line();
 
-                Canvas_trackPlanner.Children.Add(l);
+                    const double LENGTH = POSITION_STEP;
+                    l.Stroke = new SolidColorBrush(ColorFromHSV((25.0d * predecessorsCount) % 360.0d, 0.3d, 0.8d));
+                    l.StrokeThickness = 1;
+                    l.X1 = node.position.x;
+                    l.X2 = node.position.x - Math.Cos(node.position.angle / 180.0d * Math.PI) * LENGTH;
+                    l.Y1 = node.position.y;
+                    l.Y2 = node.position.y - Math.Sin(node.position.angle / 180.0d * Math.PI) * LENGTH;
+                    l.Opacity = 0.8;
+
+                    Canvas_trackPlanner.Children.Add(l);
+                    lastSeenNodesLines.Add(l);
+                }
             }
         }
 
@@ -388,6 +385,7 @@ namespace SteeringCarFromAboveWPF
             if (map != null)
             {
                 planner_.PrepareTracks(map);
+                DrawTrackPlannerSeenNodes(planner_.GetSeen());
                 trackPrepared = true;
             }
             else

@@ -26,29 +26,37 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="SteeringCarFromAbove.MarkerFinder">
-    <Position X="7" Y="3" Width="1.5" />
+  <Class Name="SteeringCarFromAbove.MarkerFinder" Collapsed="true">
+    <Position X="7.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MarkerFinder.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SteeringCarFromAbove.ObstaclesFinder">
-    <Position X="9.25" Y="3" Width="1.5" />
+  <Class Name="SteeringCarFromAbove.ObstaclesFinder" Collapsed="true">
+    <Position X="7.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>ObstaclesFinder.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SteeringCarFromAbove.MapBuilder">
-    <Position X="8.25" Y="4.5" Width="1.5" />
+  <Class Name="SteeringCarFromAbove.MapBuilder" Collapsed="true">
+    <Position X="7.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAADCIAAABAAAAAAABAA=</HashCode>
       <FileName>MapBuilder.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="markerFinder_" />
+      <Field Name="objectsToTrace_" />
+      <Field Name="obstaclesFinder_" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="SteeringCarFromAbove.TrackPlanner">
-    <Position X="8.25" Y="7" Width="1.5" />
+  <Class Name="SteeringCarFromAbove.TrackPlanner" Collapsed="true">
+    <Position X="4.5" Y="7.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
     <NestedTypes>
       <Class Name="SteeringCarFromAbove.TrackPlanner.BFSNode" Collapsed="true">
         <TypeIdentifier>
@@ -68,34 +76,27 @@
       <FileName>TrackPlanner.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SteeringCarFromAbove.Map">
-    <Position X="4.25" Y="5" Width="2" />
+  <Class Name="SteeringCarFromAbove.Map" Collapsed="true">
+    <Position X="9.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAABAAAAAAAAAAAAAAAAEAIAAIAAAAAAAAAAAIAAAA=</HashCode>
+      <HashCode>AAAQBAAAAAAAAAAEAAAAAEAIAAAAAAAAAAAAEAIAAAA=</HashCode>
       <FileName>Map.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SteeringCarFromAbove.strondddddddddddddddd">
-    <Position X="11.5" Y="4.5" Width="1.5" />
+  <Class Name="SteeringCarFromAbove.PositionAndOrientation" Collapsed="true">
+    <Position X="6.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Marker.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="SteeringCarFromAbove.Image">
-    <Position X="11.75" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAA=</HashCode>
-      <FileName>Image.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="SteeringCarFromAbove.PositionAndOrientation">
-    <Position X="11.5" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAABgAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAABgAABAAAA=</HashCode>
       <FileName>PositionAndOrientation.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Struct Name="SteeringCarFromAbove.ObjectsToTrace" Collapsed="true">
+    <Position X="10" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>ObjectsToTrace.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Enum Name="SteeringCarFromAbove.MapPoint">
     <Position X="4.5" Y="3" Width="1.5" />
     <TypeIdentifier>
