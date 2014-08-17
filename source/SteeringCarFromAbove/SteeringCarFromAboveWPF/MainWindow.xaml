@@ -1,33 +1,40 @@
 ﻿<Window x:Class="SteeringCarFromAboveWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="919" Width="1435">
+        Title="MainWindow" Height="720.492" Width="1406.642">
     <Grid>
-        <TabControl HorizontalAlignment="Left" Height="546" Margin="25,10,0,0" VerticalAlignment="Top" Width="1132">
-            <TabItem Header="Track Planner">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TabControl Margin="25,10,12,15">
+            <TabItem Header="Base Image Picker" Margin="10,0,-14,-2">
                 <Grid Background="#FFE5E5E5">
-                    <Rectangle HorizontalAlignment="Left" Height="179" Margin="991,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="125"/>
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="477" Margin="15,10,0,0" VerticalAlignment="Top" Width="971">
-                        <Canvas x:Name="Canvas_trackPlanner" HorizontalAlignment="Right" Width="975" MouseDown="Canvas_trackPlanner_MouseDown" MouseUp="Canvas_trackPlanner_MouseUp" Margin="0,9,9,9"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="10,10,256,10">
+                        <Image x:Name="image_baseImagePicker" Margin="9"/>
                     </Border>
-                    <Button x:Name="button_AddObstacle" Content="Add obstacle" Margin="1001,103,20,0" VerticalAlignment="Top" Height="36" Click="button_AddObstacle_Click"/>
-                    <Button x:Name="button_SetParkingPlace" Content="Set parking&#xA;    place" Margin="1001,46,20,0" VerticalAlignment="Top" Height="52" Click="button_SetParkingPlace_Click"/>
-                    <Button x:Name="button_RemoveObstacle" Content="Remove obstacle" Margin="1001,144,20,0" VerticalAlignment="Top" Height="36" Click="button_RemoveObstacle_Click"/>
-                    <Label Content=" Mode selection" HorizontalAlignment="Left" Margin="1001,15
-                           ,0,0" VerticalAlignment="Top" Width="101"/>
-                    <Button x:Name="button_PrepareTrack" Content="Prepare track" HorizontalAlignment="Left" Margin="1001,450,0,0" VerticalAlignment="Top" Width="105" Click="button_PrepareTrack_Click" Height="36"/>
+                    <Grid Margin="0,10" HorizontalAlignment="Right" Width="251">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Stroke="Black" Width="241"/>
+                        <Button x:Name="button_ChangeVideoSource" Content="Set video&#xA;   souce" Margin="131,10,20,0" VerticalAlignment="Top" Click="button_ChangeVideoSource_Click" HorizontalContentAlignment="Center"/>
+                        <Button x:Name="button_GetNextImage" Content="   Get next&#xA;base image" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="114" HorizontalContentAlignment="Center" Click="button_GetNextImage_Click"/>
+                        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="12,57,0,10" Width="219">
+                            <TextBlock x:Name="TextBlock_marksInfo" HorizontalAlignment="Left" Margin="9,9,0,9" TextWrapping="Wrap" Width="199" RenderTransformOrigin="0.5,0.5"><Run Language="pl-pl" Text="Markers info"/></TextBlock>
+                        </Border>
+                    </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Base Image Picker">
-                <Grid Background="#FFE5E5E5">
-                    <Button x:Name="button_GetNextImage" Content="   Get next&#xA;base image" HorizontalAlignment="Left" Margin="856,10,0,0" VerticalAlignment="Top" Width="114" HorizontalContentAlignment="Center" Click="button_GetNextImage_Click"/>
-                    <Button x:Name="button_ChangeVideoSource" Content="Set video&#xA;   souce" HorizontalAlignment="Left" Margin="975,10,0,0" VerticalAlignment="Top" Width="100" Click="button_ChangeVideoSource_Click" HorizontalContentAlignment="Center"/>
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="457" Margin="856,51,0,0" VerticalAlignment="Top" Width="219">
-                        <TextBlock x:Name="TextBlock_marksInfo" HorizontalAlignment="Left" Margin="9,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="437" Width="199" RenderTransformOrigin="0.5,0.5"><Run Language="pl-pl" Text="Markers info"/></TextBlock>
+            <TabItem Header="Track Planner" Margin="18,0,-22,-2">
+                <Grid Background="#FFE5E5E5" Margin="0,15,0,-15">
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="15,10,137,31">
+                        <Canvas x:Name="Canvas_trackPlanner" HorizontalAlignment="Right" Width="975" MouseDown="Canvas_trackPlanner_MouseDown" MouseUp="Canvas_trackPlanner_MouseUp" Margin="0,9,9,9"/>
                     </Border>
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="498" Margin="10,10,0,0" VerticalAlignment="Top" Width="841">
-                        <Image x:Name="image_baseImagePicker" HorizontalAlignment="Left" Height="478" Margin="9,9,0,0" VerticalAlignment="Top" Width="821"/>
-                    </Border>
+                    <Button x:Name="button_PrepareTrack" Content="Prepare track" Margin="0,0,22,31" Click="button_PrepareTrack_Click" HorizontalAlignment="Right" Width="100" Height="40" VerticalAlignment="Bottom"/>
+                    <Grid Margin="0,10,10,0" HorizontalAlignment="Right" Width="122" Height="178" VerticalAlignment="Top">
+                        <Rectangle Stroke="Black"/>
+                        <Label Content=" Mode selection" Margin="0,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="101"/>
+                        <Button x:Name="button_SetParkingPlace" Content="Set parking&#xA;    place" Margin="0,31,10,0" VerticalAlignment="Top" Height="52" Click="button_SetParkingPlace_Click" HorizontalAlignment="Right" Width="102"/>
+                        <Button x:Name="button_AddObstacle" Content="Add obstacle" Margin="0,88,10,0" VerticalAlignment="Top" Height="36" Click="button_AddObstacle_Click" HorizontalAlignment="Right" Width="102"/>
+                        <Button x:Name="button_RemoveObstacle" Content="Remove obstacle" Margin="0,129,10,0" VerticalAlignment="Top" Height="36" Click="button_RemoveObstacle_Click" HorizontalAlignment="Right" Width="102"/>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

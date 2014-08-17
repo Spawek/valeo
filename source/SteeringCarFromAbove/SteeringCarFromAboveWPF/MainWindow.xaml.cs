@@ -25,7 +25,7 @@ namespace SteeringCarFromAboveWPF
     public partial class MainWindow : Window
     {
         const int POSITION_STEP = 30;
-        private TrackPlanner planner_ = null;
+        private TrackPlanner trackPlanner = null;
         GlyphRecognitionStudio.MainForm glyphRecogniser;
         IVideoSource videoSource = null;
         bool waitingForNextBaseImage = false;
@@ -49,11 +49,6 @@ namespace SteeringCarFromAboveWPF
             ObjectsToTrace objectsToTrace = new ObjectsToTrace(new List<string>() { "s1", "s2" }, "car", "parking");
 
             mapBuilder = new MapBuilder(markerFinder, obstaclesFinder, objectsToTrace);
-
-            planner_ = new TrackPlanner(
-                locationTolerance: POSITION_STEP - 1, angleTolerance: 9.0d,
-                positionStep: (int)POSITION_STEP, angleStep: 10.0d,
-                mapSizeX: 1000.0d, mapSizeY: 1000.0d);
         }
 
         // http://stackoverflow.com/questions/1118496/using-image-control-in-wpf-to-display-system-drawing-bitmap
@@ -323,7 +318,7 @@ namespace SteeringCarFromAboveWPF
 
                         double angleInDegrees = Math.Atan2(deltaY, deltaX) * 180 / Math.PI;
 
-                        List<PositionAndOrientation> track = planner_.GetTrackFromPreparedPlanner(
+                        List<PositionAndOrientation> track = trackPlanner.GetTrackFromPreparedPlanner(
                             new PositionAndOrientation(lastMouseDown_.X, lastMouseDown_.Y, angleInDegrees));
 
                         DrawTrack(track);
@@ -384,8 +379,13 @@ namespace SteeringCarFromAboveWPF
         {
             if (map != null)
             {
-                planner_.PrepareTracks(map);
-                DrawTrackPlannerSeenNodes(planner_.GetSeen());
+                trackPlanner = new TrackPlanner(
+                    locationTolerance: POSITION_STEP - 1, angleTolerance: 9.0d,
+                    positionStep: (int)POSITION_STEP, angleStep: 10.0d,
+                    mapSizeX: map.mapWidth, mapSizeY: map.mapHeight);
+
+                trackPlanner.PrepareTracks(map);
+                DrawTrackPlannerSeenNodes(trackPlanner.GetSeen());
                 trackPrepared = true;
             }
             else
