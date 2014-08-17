@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarDriver.cs" />
+    <Compile Include="CarSteering.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +104,10 @@
     <ProjectReference Include="..\GlyphRecognition\GlyphRecognition.csproj">
       <Project>{0998fafd-4c8f-4c04-a5cc-03b856c804ad}</Project>
       <Name>GlyphRecognition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{ac8330cf-3f32-45c6-b8e8-5be9f8aff33d}</Project>
+      <Name>Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
