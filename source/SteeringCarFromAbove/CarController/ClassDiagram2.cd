@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Comment CommentText="MVC">
+    <Position X="18.976" Y="3.186" Height="0.521" Width="0.971" />
+  </Comment>
+  <Comment CommentText="Event Handlers">
+    <Position X="1.601" Y="3.065" Height="0.386" Width="1.026" />
+  </Comment>
+  <Comment CommentText="Event Args">
+    <Position X="5.284" Y="3.026" Height="0.386" Width="1.026" />
+  </Comment>
+  <Comment CommentText="Data received">
+    <Position X="8.118" Y="5.474" Height="0.419" Width="1.025" />
+  </Comment>
+  <Comment CommentText="Target changed">
+    <Position X="8.079" Y="7.956" Height="0.419" Width="1.314" />
+  </Comment>
+  <Comment CommentText="new Setting calculated">
+    <Position X="8.109" Y="10.259" Height="0.419" Width="1.314" />
+  </Comment>
+  <Comment CommentText="OBSOLETE">
+    <Position X="29.514" Y="0.5" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Device manager">
+    <Position X="8.042" Y="3.932" Height="0.419" Width="1.229" />
+  </Comment>
+  <Comment CommentText="PID regulator is actually useless in brake regulating">
+    <Position X="18.38" Y="13.25" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="CarController.App" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.FakeCarCommunicator" Collapsed="true" HideInheritanceLine="true">
+    <Position X="23.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAADBAAAAAAAAABACAAEAAABIAUAAAAgAAAQCgMAAA=</HashCode>
+      <FileName>Test\Fakes\FakeCarCommunicator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="model" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.MainWindow" Collapsed="true">
+    <Position X="20.25" Y="2.25" Width="1.5" />
+    <AssociationLine Name="Controller" Type="CarController.DefaultCarController">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.248" Y="0.1" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>DKgAAAayAWAipAAAAGAAAhCAgAohAJAhoEEACACWAgI=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Controller" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarController.PIDSpeedRegulator" Collapsed="true" HideInheritanceLine="true">
+    <Position X="12.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACQAACAAIQAQAAAAgAAAAAQKEAAAGIAAAAAICAIEgA=</HashCode>
+      <FileName>Model\Regulators\PIDSpeedRegulator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.PIDSteeringWheelAngleRegulator" Collapsed="true">
+    <Position X="19.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAgAAQAQAACAAAAAAAAAABAAEAAAAAAACAAAAA=</HashCode>
+      <FileName>Model\Regulators\PIDSteeringWheelAngleRegulator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.RealCarCommunicator" Collapsed="true" HideInheritanceLine="true">
+    <Position X="23.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIAADBAAAMAACAAJAGAAEABAAAAAgAAAAAAAIKgGACA=</HashCode>
+      <FileName>Model\Communicators\RealCarCommunicator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.Properties.Resources" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.Properties.Settings" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.DefaultCarController" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.75" />
+    <AssociationLine Name="Model" Type="CarController.ICar">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.253" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AIAgQAaoAAACIAAAABAaEBgAAAACAAAAiAgAAEAEAiA=</HashCode>
+      <FileName>Controller\CarController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Model" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarController.TargetSpeedChangedEventArgs" Collapsed="true">
+    <Position X="4.25" Y="8.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Car\ICar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.TargetSteeringWheelAngleChangedEventArgs" Collapsed="true">
+    <Position X="4.25" Y="7.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Car\ICar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.SpeedInfoReceivedEventArgs" Collapsed="true">
+    <Position X="4.25" Y="6.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Communicators\ICarComunicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.SteeringWheelAngleInfoReceivedEventArgs" Collapsed="true">
+    <Position X="4.25" Y="4.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Model\Communicators\ICarComunicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.NewSpeedSettingCalculatedEventArgs" Collapsed="true">
+    <Position X="4.25" Y="11" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Regulators\ISpeedRegulator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.NewSteeringWheelSettingCalculateddEventArgs" Collapsed="true">
+    <Position X="4.25" Y="9.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Regulators\ISteeringWheelAngleRegulator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.CarModel" Collapsed="true">
+    <Position X="23.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgRAAAAAAIgAKACAgAAAgghABBBAgIUAAgAIAAAgQQ=</HashCode>
+      <FileName>Test\Fakes\CarModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.FakeSpeedRegulator" Collapsed="true">
+    <Position X="14.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAQAAAAgAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Test\Fakes\FakeSpeedRegulator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.FakeSteeringWheelRegulator" Collapsed="true">
+    <Position X="21.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAQAQAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Test\Fakes\FakeSteeringWheelRegulator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.Model.Regulators.PIDBrakeRegulator" Collapsed="true">
+    <Position X="16.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAQARAMAAACSAAAAAAgEAgCAIAAAAAAAAAAACACAAI=</HashCode>
+      <FileName>Model\Regulators\PIDBrakeRegulator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.BrakePositionReceivedEventArgs" Collapsed="true">
+    <Position X="4.25" Y="5.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Communicators\ICarComunicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.NewBrakeSettingCalculatedEventArgs" Collapsed="true">
+    <Position X="4.25" Y="10.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Regulators\IBrakeRegulator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.Model.Car.RealCar" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACABAAIIAQAAgkABABAAMAgABJEAgEAAAEAAAAAEAAA=</HashCode>
+      <FileName>Model\Car\RealCar.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="car_communicator.ServoDriver" Collapsed="true">
+    <Position X="27.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACgABAAAAAQAGAIAAAAAAAAAAgIEAAIgAQAAAAAA=</HashCode>
+      <FileName>Model\Communicators\ServoDriver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="car_communicator.USB4702" Collapsed="true">
+    <Position X="29.5" Y="6.5" Width="3.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAIEDAOBURGQAQaPRMJIQISIIAECaoYAAplACoEGkAE=</HashCode>
+      <FileName>Model\Communicators\USB4702.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.FakeBrakeRegulator" Collapsed="true">
+    <Position X="17.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAARAIAAAAQAAAAAAAEAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Test\Fakes\FakeBrakeRegulator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.CarInformations" Collapsed="true">
+    <Position X="14.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAgAAAAAAAgAEBBAAIAAACAAIAIAEAA=</HashCode>
+      <FileName>Model\Car\CarInformations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.CarWithFakeCommunicator" Collapsed="true">
+    <Position X="14.25" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIIAQAAgAABABAAMAgABIAAgEAAAEAAAAAEAAA=</HashCode>
+      <FileName>Test\Fakes\CarWithFakeCommunicator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.CarWithFakeRegulators" Collapsed="true">
+    <Position X="12" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIIAQAAgAABABAAMAgABIAAgEAAAEAAAAAEAAA=</HashCode>
+      <FileName>Test\Fakes\CarWithFakeRegulators.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.Model.Regulators.SimpleBrakeRegulator" Collapsed="true">
+    <Position X="15.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAQARAMAEACSAQAAAAgEAgAAAAAAAAAAAAEAGACAAI=</HashCode>
+      <FileName>Model\Regulators\SimpleBrakeRegulator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController.Model.Communicators.SafeRS232Communicator" Collapsed="true">
+    <Position X="30.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAgBAQAAAAAQAEAAAAQACEAAgAAAgAAAAADoHgCAI=</HashCode>
+      <FileName>Model\Communicators\SafeRS232Communicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.Model.Communicators.SafeRS232Controller" Collapsed="true">
+    <Position X="30.5" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QQGAAIgAAgQAJyAHAIgUgqJAAIAAAJAAAAgAAQAAAEA=</HashCode>
+      <FileName>Model\Communicators\SafeRS232Controller.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="RS232" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarController.RS232Controller" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QECAgJAQAkQAJyABCBgcymJEAAQgQBggAAACDQBIgEA=</HashCode>
+      <FileName>Model\Communicators\RS232.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarController.Model.Communicators.Speedometer" Collapsed="true">
+    <Position X="26.25" Y="7" Width="1.75" />
+    <AssociationLine Name="extentionCardCommunicator" Type="car_communicator.USB4702">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.005" Y="-0.253" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAIABAQIAAAQAGAKAIAAEgAAChAIBAAAgAACgAAAA=</HashCode>
+      <FileName>Model\Communicators\Speedometer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="extentionCardCommunicator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarController.MFCSPeedRegulator" Collapsed="true">
+    <Position X="13.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQACAAAIQAQIAAAgBAAAAAKAAAgCoAAAAAIAEEEAA=</HashCode>
+      <FileName>Model\Regulators\MFCSPeedRegulator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarController_old.RS232Controller" Collapsed="true">
+    <Position X="27.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RECAgJAQAkQAJyADCJgcymJEAAQgQJggAAgCDQBIgEA=</HashCode>
+      <FileName>Model\Communicators\RS232_old.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="car_communicator.GearboxController" Collapsed="true">
+    <Position X="27.5" Y="5.25" Width="1.5" />
+    <AssociationLine Name="extentionCardCommunicator" Type="car_communicator.USB4702" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="28.531" Y="5.941" />
+        <Point X="28.531" Y="6.25" />
+        <Point X="29.938" Y="6.25" />
+        <Point X="29.938" Y="6.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.081" Y="-0.036" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gCAAAAgAAIAAgUADgIQAEgAKAAAQAIAAAAgACAAAAAI=</HashCode>
+      <FileName>Model\Communicators\GearboxController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="extentionCardCommunicator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Helpers.DeviceStateHasChangedEventArgs" Collapsed="true">
+    <Position X="4.25" Y="3.75" Width="3.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Helpers.Device" Collapsed="true">
+    <Position X="27.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Helpers.DeviceManager" Collapsed="true">
+    <Position X="14.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="CarController.ICar">
+    <Position X="17" Y="5" Width="1.75" />
+    <AssociationLine Name="SteeringWheelAngleRegulator" Type="CarController.ISteeringWheelAngleRegulator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="18.562" Y="8.161" />
+        <Point X="18.562" Y="8.719" />
+        <Point X="19.25" Y="8.719" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.441" Y="-0.203" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="SpeedRegulator" Type="CarController.ISpeedRegulator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17.188" Y="8.161" />
+        <Point X="17.188" Y="8.625" />
+        <Point X="15.5" Y="8.625" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Controller" Type="CarController.DefaultCarController">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.985" Y="0.2" Height="0.162" Width="0.783" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="CarInfo" Type="CarController.CarInformations" ManuallyRouted="true">
+      <Path>
+        <Point X="17" Y="5.583" />
+        <Point X="15.75" Y="5.469" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.836" Y="0.1" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="BrakeRegulator" Type="CarController.IBrakeRegulator" FixedFromPoint="true">
+      <Path>
+        <Point X="17.875" Y="8.161" />
+        <Point X="17.875" Y="9.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.172" Y="0.096" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAIIAQAAgAABABAAMAgABIAAgEAAAEAAAAAEAAA=</HashCode>
+      <FileName>Model\Car\ICar.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SteeringWheelAngleRegulator" />
+      <Property Name="SpeedRegulator" />
+      <Property Name="Controller" />
+      <Property Name="CarComunicator" />
+      <Property Name="CarInfo" />
+      <Property Name="BrakeRegulator" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="CarController.ISteeringWheelAngleRegulator">
+    <Position X="19.25" Y="8.25" Width="2.5" />
+    <AssociationLine Name="Car" Type="CarController.ICar" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.25" Y="8.625" />
+        <Point X="18.688" Y="8.625" />
+        <Point X="18.688" Y="8.161" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.218" Y="0.115" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAQAQAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Regulators\ISteeringWheelAngleRegulator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Car" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="CarController.ICarCommunicator">
+    <Position X="20.25" Y="5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAADBAAAAAACAAAACAAEAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Model\Communicators\ICarComunicator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ICar" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="CarController.ISpeedRegulator">
+    <Position X="13.25" Y="8.25" Width="2.25" />
+    <AssociationLine Name="Car" Type="CarController.ICar" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.5" Y="8.812" />
+        <Point X="17.375" Y="8.812" />
+        <Point X="17.375" Y="8.161" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.961" Y="0.853" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAQAAAAgAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Model\Regulators\ISpeedRegulator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Car" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="CarController.IBrakeRegulator">
+    <Position X="16.5" Y="9.25" Width="2" />
+    <AssociationLine Name="ICar" Type="CarController.ICar" FixedToPoint="true">
+      <Path>
+        <Point X="17.625" Y="9.25" />
+        <Point X="17.625" Y="8.161" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.164" Y="0.625" Height="0.162" Width="0.774" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAARAIAAAAQAAAAAAAEAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Regulators\IBrakeRegulator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ICar" />
+    </ShowAsAssociation>
+  </Interface>
+  <Enum Name="CarController.Gear">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAECgAAAACAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Communicators\ICarComunicator.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Helpers.DeviceOverallState">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Delegate Name="CarController.TargetSpeedChangedEventHandler" Collapsed="true">
+    <Position X="0.5" Y="8.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Car\ICar.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CarController.TargetSteeringWheelAngleChangedEventHandler" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Model\Car\ICar.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CarController.SpeedInfoReceivedEventHander" Collapsed="true">
+    <Position X="0.5" Y="6.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Communicators\ICarComunicator.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CarController.SteeringWheelAngleInfoReceivedEventHandler" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Communicators\ICarComunicator.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CarController.NewSpeedSettingCalculatedEventHandler" Collapsed="true">
+    <Position X="0.5" Y="11" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Regulators\ISpeedRegulator.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CarController.NewSteeringWheelSettingCalculatedEventHandler" Collapsed="true">
+    <Position X="0.5" Y="9.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Model\Regulators\ISteeringWheelAngleRegulator.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CarController.BrakePositionReceivedEventHandler" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Communicators\ICarComunicator.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CarController.NewBrakeSettingCalculatedEventHandler" Collapsed="true">
+    <Position X="0.5" Y="10.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Model\Regulators\IBrakeRegulator.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Helpers.DeviceStateHasChangedEventHandler" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="3.5" />
+    <TypeIdentifier />
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

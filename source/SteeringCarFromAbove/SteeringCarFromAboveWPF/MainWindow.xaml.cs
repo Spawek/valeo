@@ -91,6 +91,10 @@ namespace SteeringCarFromAboveWPF
                     this.Dispatcher.Invoke(new Action(() => plannerBackGround.Source = loadBitmap(baseImage)));
                     this.Dispatcher.Invoke(new Action(() => Canvas_trackPlanner.UpdateLayout()));
                 }
+                else
+                {
+                    this.Dispatcher.Invoke(new Action(() => TextBlock_marksInfo.Text = "Map couldn't be build basing on current image!"));
+                }
 
                 waitingForNextBaseImage = false;
                 Console.WriteLine("New base frame acquired!");

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="auton" Class="StatsSqlClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SPAWEKOLDLAP\SPAWEK_SQL;Initial Catalog=auton;Integrated Security=True" SettingsObjectName="Helpers.Properties.Settings" SettingsPropertyName="autonConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.logs" Member="logs">
+    <Type Name="log">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="datetime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="current_speed" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="target_speed" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="speed_steering" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="current_angle" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="target_angle" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="angle_steering" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="current_brake" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="target_brake" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="brake_steering" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

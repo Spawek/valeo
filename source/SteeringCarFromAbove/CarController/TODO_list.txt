@@ -1,0 +1,24 @@
+﻿TODO:
+	now:
+		- zrobić działające jednostki (m/s, prawdziwe stopnie, a nie takie gówno jak jest teraz)
+		- making FakeCarModel working like real model (Kubon???)
+		- starting sequence (using IsInitialized()) + some barier to sync everything ((???) rly - now u can just turn in on in every moment)
+
+	future:
+		- real time charts drawing (from gathered stats) (it would make regulators tuning much easier)
+
+NEW TODO:
+	- nawiew + wycieraczki (okna zaparowują przy zamkniętych oknach - kiedy w środku jest mokro jest masakra, kiedy deszcz pada trzeba otwierać okna przez co w środku jest mokro - po 4 godzinach pokazu w deszczu szału nie ma ;))
+
+TODO:
+	- skalibrować kierownicę (max wychylenia)
+	- skalibrować prędkość
+	- skalibrować czujnik hamulca (!)
+	- odciskać hamulec przy wyłączaniu
+	- zrobić jakoś na hardo ustawianie konkretnego położenia hamulca z konsoli
+	- wyświetlać obecny bieg!
+	- zminą biegu (kiedy komp nic nie robi) można wyłączać samochód
+	- zmiana biegu reaguje teraz dopiero po jakimś czasie (do 50ms) od ustawienia -
+	- przerobić gear na regulator (żeby było tak jak reszta w carInformations wiadomo jaki jest target)
+
+

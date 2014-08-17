@@ -1,0 +1,46 @@
+﻿<Window x:Class="CarController.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="571" Width="525" ResizeMode="NoResize">
+    <Grid Height="305" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="44*"/>
+            <ColumnDefinition Width="475*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="speed" Height="28" HorizontalAlignment="Left" Margin="12,64,0,0" Name="label4" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+        <Label Content="angle" Height="28" HorizontalAlignment="Left" Margin="12,118,0,0" Name="label5" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+        <Label Content="current" Height="28" HorizontalAlignment="Left" Margin="28,30,0,0" Name="label7" VerticalAlignment="Top" Grid.Column="1" />
+        <Label Content="target" Height="28" HorizontalAlignment="Left" Margin="120,30,0,0" Name="label8" VerticalAlignment="Top" Grid.Column="1" />
+        <Label Content="steering" Height="28" HorizontalAlignment="Left" Margin="215,30,0,0" Name="label9" VerticalAlignment="Top" Grid.Column="1" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="28,69,0,0" Name="textBlock_currentSpeed" Text="0" VerticalAlignment="Top" Width="48" Grid.Column="1" />
+        <TextBlock Height="23" Margin="120,69,0,0" Name="textBlock_targetSpeed" Text="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Grid.Column="1" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="28,123,0,0" Name="textBlock_currentAngle" Text="0" VerticalAlignment="Top" Width="48" Grid.Column="1" />
+        <TextBlock Height="23" Margin="120,123,0,0" Name="textBlock_targetAngle" Text="0
+                   " VerticalAlignment="Top" HorizontalAlignment="Left" Width="57" Grid.Column="1" />
+        <TextBlock Height="23" Margin="215,69,0,0" Name="textBlock_steeringSpeed" Text="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Grid.Column="1" />
+        <TextBlock Height="23" Margin="215,123,0,0" Name="textBlock_steeringAngle" Text="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Grid.Column="1" />
+        <Label Content="time" HorizontalAlignment="Left" Margin="12,0,0,23" Name="label1" Height="28" VerticalAlignment="Bottom" Grid.ColumnSpan="2" />
+        <TextBlock Margin="17,0,0,23" Name="textBlock_time" Text="TextBlock" HorizontalAlignment="Left" Width="50" Height="23" VerticalAlignment="Bottom" Grid.Column="1" />
+        <Label Content="brake" Height="28" HorizontalAlignment="Left" Margin="11,163,0,0" Name="label2" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="28,168,0,0" Name="textBlock_currentBrake" Text="0" VerticalAlignment="Top" Width="48" Grid.Column="1" />
+        <TextBlock Height="23" Margin="120,168,0,0" Name="textBlock_targetBrake" Text="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Grid.Column="1" />
+        <TextBlock Height="23" Margin="215,168,0,0" Name="textBlock_steeringBrake" Text="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Grid.Column="1" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="292,272,0,0" Name="textBlock_alertBrakeActivated" Text="Alert Brake disactivated" VerticalAlignment="Top" Grid.Column="1" />
+        <GroupBox Header="GroupBox" HorizontalAlignment="Left" Margin="12,337,0,0" VerticalAlignment="Top" Height="149" Width="474" Grid.ColumnSpan="2">
+            <ProgressBar x:Name="progressBar_leftDir" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="152" Margin="32,46,0,0" RenderTransformOrigin="0.591,-1.368" FlowDirection="RightToLeft" Foreground="#FF011ED3">
+                <ProgressBar.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="2.862"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="-2.599"/>
+                    </TransformGroup>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
+        </GroupBox>
+        <ProgressBar x:Name="progressBar_speed" HorizontalAlignment="Left" Height="104" Margin="201,358,0,0" VerticalAlignment="Top" Width="20" Orientation="Vertical" Grid.Column="1"/>
+        <ProgressBar x:Name="progressBar_rightDir" HorizontalAlignment="Left" Height="23" Margin="264,397,0,0" VerticalAlignment="Top" Width="152" Foreground="#FF0101D3" Grid.Column="1"/>
+        <Label Content="Gear" Grid.Column="1" HorizontalAlignment="Left" Margin="369,58,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock_currentGear" Grid.Column="1" HorizontalAlignment="Left" Margin="366,89,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

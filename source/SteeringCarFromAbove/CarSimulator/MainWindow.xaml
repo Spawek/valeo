@@ -1,0 +1,76 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="CarSimulator.MainWindow"
+        Title="MainWindow" Height="350" Width="741">
+    <Grid>
+        <Slider x:Name="slider_RPM" HorizontalAlignment="Left" Margin="20,66,0,0" VerticalAlignment="Top" Width="224" Maximum="7000" IsEnabled="False"/>
+        <Slider x:Name="slider_externalForces" HorizontalAlignment="Left" Margin="405,215,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,1.091" Width="158" Maximum="10000" ValueChanged="slider_externalForces_ValueChanged">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform X="13.002" Y="-13.002"/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
+        <Slider x:Name="slider_acceleration" HorizontalAlignment="Left" Margin="484,217,-23,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="156" ValueChanged="slider_acceleration_ValueChanged" Maximum="100">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-89.952"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
+        <Label Content="acceleration[%]" HorizontalAlignment="Left" Margin="517,108,0,0" VerticalAlignment="Top"/>
+        <Label Content="external&#xA;forces [N]" HorizontalAlignment="Left" Margin="451,92,0,0" VerticalAlignment="Top"/>
+        <Label Content="RPM" HorizontalAlignment="Left" Margin="107,30,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="button_start" Content="Start" HorizontalAlignment="Left" Margin="451,48,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Slider x:Name="slider_transmission" HorizontalAlignment="Left" Margin="328,215,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,1.091" Width="158" Value ="1" ValueChanged="slider_transmission_ValueChanged" Maximum="5" Minimum="1" SmallChange="1">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform X="13.002" Y="-13.002"/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
+        <Label Content="transmission" HorizontalAlignment="Left" Margin="370,108,0,0" VerticalAlignment="Top"/>
+        <Label Content="0" HorizontalAlignment="Left" Margin="20,88,0,0" VerticalAlignment="Top"/>
+        <Label Content="7000" HorizontalAlignment="Left" Margin="208,83,0,0" VerticalAlignment="Top" RenderTransformOrigin="13.5,0.538"/>
+        <Label Content="1" HorizontalAlignment="Left" Margin="370,281,0,0" VerticalAlignment="Top"/>
+        <Label Content="5" HorizontalAlignment="Left" Margin="370,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.875,-4.5"/>
+        <Label Content="10000" HorizontalAlignment="Left" Margin="429,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.875,-4.5"/>
+        <Label Content="100" HorizontalAlignment="Left" Margin="514,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.875,-4.5"/>
+        <Label Content="0" HorizontalAlignment="Left" Margin="441,281,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.188,0.5"/>
+        <Label Content="0" HorizontalAlignment="Left" Margin="517,281,0,0" VerticalAlignment="Top" RenderTransformOrigin="5.188,0.5"/>
+        <Label Content="Speed:" HorizontalAlignment="Left" Margin="20,125,0,0" VerticalAlignment="Top"/>
+        <TextBlock Name="TextBlock_speed" HorizontalAlignment="Left" Margin="71,130,0,0" TextWrapping="Wrap" Text="0 km/h" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Height="4" Margin="-143,310,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="2"/>
+        <TextBlock x:Name="TextBlock_currGear" HorizontalAlignment="Left" Margin="370,213,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TextBlock_externalForces" HorizontalAlignment="Left" Margin="441,213,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TextBlock_acceleration" HorizontalAlignment="Left" Margin="527,213,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TextBlock_currRPM" HorizontalAlignment="Left" Margin="107,88,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <Label Content="Forward force: " HorizontalAlignment="Left" Margin="20,151,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TextBlock_forwardForce" HorizontalAlignment="Left" Margin="106,156,0,0" TextWrapping="Wrap" Text="0 N" VerticalAlignment="Top"/>
+        <Label Content="Engine resistance * transmission rate:" HorizontalAlignment="Left" Margin="20,177,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TextBlock_EngineResisntance_times_transmissionRate" HorizontalAlignment="Left" Margin="226,182,0,0" TextWrapping="Wrap" Text="0 N" VerticalAlignment="Top"/>
+        <Label Content="Transmission rate:" HorizontalAlignment="Left" Margin="20,255,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TextBlock_trasmissionRate" HorizontalAlignment="Left" Margin="125,260,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TextBlock_aerodynamicResistance" HorizontalAlignment="Left" Margin="160,208,0,0" TextWrapping="Wrap" Text="0 N" VerticalAlignment="Top"/>
+        <Label Content="Aerodynamic resistance:" HorizontalAlignment="Left" Margin="22,203,0,0" VerticalAlignment="Top"/>
+        <Label Content="Rolling resistance: " HorizontalAlignment="Left" Margin="22,229,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.158,-0.154"/>
+        <TextBlock x:Name="TextBlock_rollingResistance" HorizontalAlignment="Left" Margin="125,234,0,0" TextWrapping="Wrap" Text="0 N" VerticalAlignment="Top"/>
+        <Slider x:Name="Slider_braking" HorizontalAlignment="Left" Margin="633,139,0,0" VerticalAlignment="Top" Width="22" Orientation="Vertical" Height="168" RenderTransformOrigin="1.455,-0.877" Maximum="100" ValueChanged="Slider_braking_ValueChanged"/>
+        <Label Content="braking[%]" HorizontalAlignment="Left" Margin="613,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.158,-0.077"/>
+        <Label Content="0" HorizontalAlignment="Left" Margin="592,281,0,0" VerticalAlignment="Top"/>
+        <Label Content="100" HorizontalAlignment="Left" Margin="592,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.921,0.692"/>
+        <TextBlock x:Name="TextBlock_braking" HorizontalAlignment="Left" Margin="602,213,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+        <Label Content="Distance done:" HorizontalAlignment="Left" Margin="20,281,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TextBlock_distanceDone" HorizontalAlignment="Left" Margin="108,286,0,0" TextWrapping="Wrap" Text="0 m" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
