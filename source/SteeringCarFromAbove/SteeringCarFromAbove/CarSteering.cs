@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SteeringCarFromAbove
 {
-    class CarSteering
+    public class CarSteering
     {
         private double __speed__;
         public double speed
@@ -26,7 +26,7 @@ namespace SteeringCarFromAbove
             get { return __angle__; }
             set
             {
-                if (value < 30.0d || value > 30.0d)
+                if (value < -60.0d || value > 60.0d)
                     throw new ArgumentException();
                 else __angle__ = value;
             }
@@ -46,7 +46,7 @@ namespace SteeringCarFromAbove
 
         public override string ToString()
         {
-            return String.Format("Car steering:\nspeed:{0}\nangle:{1}\nbrake:{2}\n", speed, angle, brake);
+            return String.Format("Car steering:\nspeed:{0:0.##}\nangle:{1:0.##}\nbrake:{2:0.##}\n", speed, angle, brake);
         }
     }
 }

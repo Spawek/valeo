@@ -27,13 +27,22 @@
                     <Border BorderBrush="Black" BorderThickness="1" Margin="15,10,137,31">
                         <Canvas x:Name="Canvas_trackPlanner" HorizontalAlignment="Right" Width="975" MouseDown="Canvas_trackPlanner_MouseDown" MouseUp="Canvas_trackPlanner_MouseUp" Margin="0,9,9,9"/>
                     </Border>
-                    <Button x:Name="button_PrepareTrack" Content="Prepare track" Margin="0,0,22,31" Click="button_PrepareTrack_Click" HorizontalAlignment="Right" Width="100" Height="40" VerticalAlignment="Bottom"/>
                     <Grid Margin="0,10,10,0" HorizontalAlignment="Right" Width="122" Height="178" VerticalAlignment="Top">
                         <Rectangle Stroke="Black"/>
                         <Label Content=" Mode selection" Margin="0,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="101"/>
                         <Button x:Name="button_SetParkingPlace" Content="Set parking&#xA;    place" Margin="0,31,10,0" VerticalAlignment="Top" Height="52" Click="button_SetParkingPlace_Click" HorizontalAlignment="Right" Width="102"/>
                         <Button x:Name="button_AddObstacle" Content="Add obstacle" Margin="0,88,10,0" VerticalAlignment="Top" Height="36" Click="button_AddObstacle_Click" HorizontalAlignment="Right" Width="102"/>
                         <Button x:Name="button_RemoveObstacle" Content="Remove obstacle" Margin="0,129,10,0" VerticalAlignment="Top" Height="36" Click="button_RemoveObstacle_Click" HorizontalAlignment="Right" Width="102"/>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="123" Margin="1224,482,0,0" VerticalAlignment="Top" Width="122">
+                        <Rectangle Stroke="Black"/>
+                        <Label Content="    Parking control" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112"/>
+                        <Button x:Name="button_PrepareTrack" Content="Prepare track" Margin="0,31,10,0" Click="button_PrepareTrack_Click" HorizontalAlignment="Right" Width="102" Height="40" VerticalAlignment="Top"/>
+                        <Button x:Name="Button_ParkACar" Content="Park a car" Margin="0,76,10,0" Height="36" VerticalAlignment="Top" HorizontalAlignment="Right" Width="102" Click="Button_ParkACar_Click"/>
+                    </Grid>
+                    <Grid Height="284" Margin="0,193,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="122">
+                        <Rectangle Stroke="Black"/>
+                        <TextBlock x:Name="TextBlock_CarSteeringInformations" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="264" Width="102"><Run Language="pl-pl" Text="Car steering informations"/></TextBlock>
                     </Grid>
                 </Grid>
             </TabItem>

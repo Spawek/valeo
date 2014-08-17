@@ -25,7 +25,7 @@ namespace SteeringCarFromAboveWPF
     public partial class MainWindow : Window
     {
         const int POSITION_STEP = 30;
-        private TrackPlanner trackPlanner = null;
+        TrackPlanner trackPlanner = null;
         GlyphRecognitionStudio.MainForm glyphRecogniser;
         IVideoSource videoSource = null;
         bool waitingForNextBaseImage = false;
@@ -33,10 +33,13 @@ namespace SteeringCarFromAboveWPF
         Map map = null;
         MapBuilder mapBuilder = null;
         Image plannerBackGround = new Image();
+        List<PositionAndOrientation> calculateTrack = null;
+        CarDriver carDriver = null;
+        bool carUnderDriving = false;
 
         CarController.DefaultCarController carController;
         CarController.MainWindow carControllerWindow;
-
+        
         public MainWindow()
         {
             glyphRecogniser = new GlyphRecognitionStudio.MainForm();
@@ -92,9 +95,7 @@ namespace SteeringCarFromAboveWPF
                 if (map != null)
                 {
                     this.Dispatcher.Invoke(new Action(() => TextBlock_marksInfo.Text = map.ToString()));
-
                     this.Dispatcher.Invoke(new Action(() => DrawMap(map)));
-
                     this.Dispatcher.Invoke(new Action(() => plannerBackGround.Source = loadBitmap(baseImage)));
                     this.Dispatcher.Invoke(new Action(() => Canvas_trackPlanner.UpdateLayout()));
                 }
@@ -111,10 +112,18 @@ namespace SteeringCarFromAboveWPF
                 if (map != null)
                 {
                     mapBuilder.UpdateCarPosition(map, frameData.getGlyphs());
-
                     this.Dispatcher.Invoke(new Action(() => DrawMap(map)));
-
                     Console.WriteLine("Car position updated!");
+
+                    if (carUnderDriving)
+                    {
+                        CarSteering carSteering = carDriver.CalculateCarSteering(map);
+                        this.Dispatcher.Invoke(new Action(() => TextBlock_CarSteeringInformations.Text = carSteering.ToString()));
+
+                        carController.SetTargetSpeed(carSteering.speed);
+                        carController.SetTargetWheelAngle(carSteering.angle);
+                        carController.OverrideTargetBrakeSetting(carSteering.brake);
+                    }
                 }
             }
             Console.WriteLine("Frame processed");
@@ -309,7 +318,6 @@ namespace SteeringCarFromAboveWPF
             }
         }
 
-
         private Point lastMouseDown_;
         private void Canvas_trackPlanner_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -329,10 +337,10 @@ namespace SteeringCarFromAboveWPF
 
                         double angleInDegrees = Math.Atan2(deltaY, deltaX) * 180 / Math.PI;
 
-                        List<PositionAndOrientation> track = trackPlanner.GetTrackFromPreparedPlanner(
+                        calculateTrack = trackPlanner.GetTrackFromPreparedPlanner(
                             new PositionAndOrientation(lastMouseDown_.X, lastMouseDown_.Y, angleInDegrees));
 
-                        DrawTrack(track);
+                        DrawTrack(calculateTrack);
                     }
                     break;
                 case TrackPlannerMode.ADDING_OBSTACLES:
@@ -452,6 +460,19 @@ namespace SteeringCarFromAboveWPF
                 System.Windows.Forms.MessageBox.Show("Prepare track first!");
             }
 
+        }
+
+        private void Button_ParkACar_Click(object sender, RoutedEventArgs e)
+        {
+            if (calculateTrack != null)
+            {
+                carDriver = new CarDriver(map, calculateTrack);
+                carUnderDriving = true;
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Choose your track first!");
+            }
         }
 
     }

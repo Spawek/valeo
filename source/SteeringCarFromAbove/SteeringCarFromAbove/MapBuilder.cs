@@ -44,7 +44,8 @@ namespace SteeringCarFromAbove
             IDictionary<string, PositionAndOrientation> markersPositions = markerFinder_.FindMarkers(glyphs);
 
             if (markersPositions.ContainsKey("car") && markersPositions.Count > 1 &&
-                markersPositions.All(x => x.Key == "car" || baseMap.markers.ContainsKey(x.Key)))
+                markersPositions.All(x => x.Key == "car" || baseMap.markers.ContainsKey(x.Key)) &&
+                baseMap.markers.All(x => markersPositions.ContainsKey(x.Key)))
             {
                 PositionAndOrientation carPosition = markersPositions["car"];
                 IDictionary<string, PositionAndOrientation> stableMarkersPosition =

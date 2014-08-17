@@ -13,7 +13,7 @@ namespace SteeringCarFromAbove
     /// 
     /// It uses PID regulator
     /// </summary>
-    class CarDriver
+    public class CarDriver
     {
         private Map baseMap;
         private LinkedList<PositionAndOrientation> track;
@@ -29,7 +29,7 @@ namespace SteeringCarFromAbove
 
         private PIDSettings angleRegulatorSettings = new PIDSettings()
         {
-            P_FACTOR_MULTIPLER = 0.5,
+            P_FACTOR_MULTIPLER = 0.0, //DISABLED
 
             I_FACTOR_MULTIPLER = 0.0d,
             I_FACTOR_SUM_MAX_VALUE = 0.0d,
@@ -87,8 +87,8 @@ namespace SteeringCarFromAbove
 
         private double CalculateDistanceAndSideBetweenLineAndPoint(PositionAndOrientation line, PositionAndOrientation point)
         {
-            double lineA = Math.Cos(line.angle);
-            double lineB = Math.Sin(line.angle);
+            double lineA = Math.Cos(line.angle / 180.0 * Math.PI);
+            double lineB = Math.Sin(line.angle / 180.0 * Math.PI);
             double lineC = -1 * (line.x * lineA + line.y * lineB);
 
             return lineA * point.x + lineB * point.y + lineC; //  dividing by sqrt(A^2 + B^2) is not needed as these values are taken from sin/cos
@@ -155,7 +155,7 @@ namespace SteeringCarFromAbove
                 throw new ApplicationException("unknown mode!");
             }
 
-            double distanceAndSide = CalculateDistanceAndSideBetweenLineAndPoint(currentMap.car, currentPosition.Value);
+            double distanceAndSide = CalculateDistanceAndSideBetweenLineAndPoint(currentPosition.Value, currentMap.car);
             double distanceRegulatorValue = distanceRegulator.ProvideObjectCurrentValueToRegulator(distanceAndSide);
             double angleRegulatorValue = angleRegulator.ProvideObjectCurrentValueToRegulator(currentPosition.Value.angle);
             steering.angle = distanceRegulatorValue + angleRegulatorValue;
