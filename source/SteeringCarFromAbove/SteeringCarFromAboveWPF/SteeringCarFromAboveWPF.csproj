@@ -107,6 +107,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CarController\CarController.csproj">
+      <Project>{e23ebe5e-cf61-479e-aa5e-3be971e03653}</Project>
+      <Name>CarController</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glyph Recognition Studio\Glyph Recognition Studio.csproj">
       <Project>{21240c95-b224-474a-92f1-71efba49606d}</Project>
       <Name>Glyph Recognition Studio</Name>

@@ -34,11 +34,18 @@ namespace SteeringCarFromAboveWPF
         MapBuilder mapBuilder = null;
         Image plannerBackGround = new Image();
 
+        CarController.DefaultCarController carController;
+        CarController.MainWindow carControllerWindow;
+
         public MainWindow()
         {
             glyphRecogniser = new GlyphRecognitionStudio.MainForm();
             glyphRecogniser.frameProcessed += glyphRecogniser_frameProcessed;
             glyphRecogniser.Show();
+
+            carController = new CarController.DefaultCarController();
+            carControllerWindow = new CarController.MainWindow(carController);
+            carControllerWindow.Show();
 
             InitializeComponent();
 
