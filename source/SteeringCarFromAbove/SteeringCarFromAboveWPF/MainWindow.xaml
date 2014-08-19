@@ -34,7 +34,7 @@
                         <Button x:Name="button_AddObstacle" Content="Add obstacle" Margin="0,88,10,0" VerticalAlignment="Top" Height="36" Click="button_AddObstacle_Click" HorizontalAlignment="Right" Width="102"/>
                         <Button x:Name="button_RemoveObstacle" Content="Remove obstacle" Margin="0,129,10,0" VerticalAlignment="Top" Height="36" Click="button_RemoveObstacle_Click" HorizontalAlignment="Right" Width="102"/>
                     </Grid>
-                    <Grid HorizontalAlignment="Left" Height="123" Margin="1224,482,0,0" VerticalAlignment="Top" Width="122">
+                    <Grid HorizontalAlignment="Right" Height="123" Margin="0,482,10,0" VerticalAlignment="Top" Width="122">
                         <Rectangle Stroke="Black"/>
                         <Label Content="    Parking control" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112"/>
                         <Button x:Name="button_PrepareTrack" Content="Prepare track" Margin="0,31,10,0" Click="button_PrepareTrack_Click" HorizontalAlignment="Right" Width="102" Height="40" VerticalAlignment="Top"/>
