@@ -386,8 +386,9 @@ namespace SteeringCarFromAboveWPF
                 Console.WriteLine("Couldn't open video source");
             }
         }
-        
-        
+
+
+        System.Threading.Mutex m = new System.Threading.Mutex();
         private void Button_FileVideoSource_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new System.Windows.Forms.OpenFileDialog();
@@ -396,12 +397,20 @@ namespace SteeringCarFromAboveWPF
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 videoSource = new FileVideoSource(dialog.InitialDirectory + dialog.FileName);
-                glyphRecogniser.InjectVideoSource(videoSource);
+                videoSource.NewFrame += videoSource_Lock;
+                glyphRecogniser.InjectVideoSource(videoSource, false);
             }
             else
             {
                 Console.WriteLine("Couldn't open video source");
             }
+        }
+
+
+        int c = 0;
+        void videoSource_Lock(object sender, NewFrameEventArgs eventArgs)
+        {
+            Console.WriteLine(String.Format("F: {0}", c++));
         }
 
         void async_VideoSourceError(object sender, VideoSourceErrorEventArgs eventArgs)

@@ -95,9 +95,9 @@ namespace GlyphRecognitionStudio
             imagesToolStripMenuItem.Tag  = VisualizationType.Image;
         }
 
-        public void InjectVideoSource(IVideoSource source)
+        public void InjectVideoSource(IVideoSource source, bool skipFramesAllowed = true)
         {
-            OpenVideoSource(source);
+            OpenVideoSource(source, skipFramesAllowed);
         }
 
         // On File->Exit menu item click
@@ -225,7 +225,7 @@ namespace GlyphRecognitionStudio
         }
 
         // Open video source
-        private void OpenVideoSource( IVideoSource source )
+        private void OpenVideoSource( IVideoSource source, bool skippingFramesAllowed )
         {
             // set busy cursor
             this.Cursor = Cursors.WaitCursor;
@@ -238,7 +238,7 @@ namespace GlyphRecognitionStudio
             videoSourcePlayer.WaitForStop( );
 
             // start new video source
-            videoSourcePlayer.VideoSource = new AsyncVideoSource( source );
+            videoSourcePlayer.VideoSource = new AsyncVideoSource(source, skippingFramesAllowed);
             videoSourcePlayer.Start( );
 
             // reset stop watch
@@ -811,5 +811,6 @@ namespace GlyphRecognitionStudio
                 e.Graphics.DrawImage( glyphImage, xPixels, yPixels );
             }
         }
+
     }
 }
