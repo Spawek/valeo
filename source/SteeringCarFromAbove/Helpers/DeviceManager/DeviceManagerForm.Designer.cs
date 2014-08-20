@@ -172,7 +172,6 @@
             this.MaximizeBox = false;
             this.Name = "DeviceManagerForm";
             this.Text = "DeviceManagerForm";
-            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

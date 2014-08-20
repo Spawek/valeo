@@ -383,9 +383,35 @@ namespace SteeringCarFromAboveWPF
             }
             else
             {
-                Console.WriteLine("Couldnt open video source");
+                Console.WriteLine("Couldn't open video source");
             }
+        }
+        
+        
+        private void Button_FileVideoSource_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new System.Windows.Forms.OpenFileDialog();
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
 
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                videoSource = new FileVideoSource(dialog.InitialDirectory + dialog.FileName);
+                glyphRecogniser.InjectVideoSource(videoSource);
+            }
+            else
+            {
+                Console.WriteLine("Couldn't open video source");
+            }
+        }
+
+        void async_VideoSourceError(object sender, VideoSourceErrorEventArgs eventArgs)
+        {
+            System.Windows.Forms.MessageBox.Show(eventArgs.Description);
+        }
+
+        void async_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            System.Windows.Forms.MessageBox.Show("FRAME!");
         }
 
         private void button_GetNextImage_Click(object sender, RoutedEventArgs e)
@@ -472,6 +498,22 @@ namespace SteeringCarFromAboveWPF
             else
             {
                 System.Windows.Forms.MessageBox.Show("Choose your track first!");
+            }
+        }
+
+        private void Button_ResumeFeeding_Click(object sender, RoutedEventArgs e)
+        {
+            if (videoSource != null)
+            {
+                videoSource.Start();
+            }
+        }
+
+        private void Button_PauseFeeding_Click(object sender, RoutedEventArgs e)
+        {
+            if (videoSource != null)
+            {
+                videoSource.Stop();
             }
         }
 
