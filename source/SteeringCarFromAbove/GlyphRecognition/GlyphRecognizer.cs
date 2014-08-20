@@ -25,7 +25,7 @@ namespace AForge.Vision.GlyphRecognition
     {
         // ---> set of image processing routines in use
         private DifferenceEdgeDetector edgeDetector = new DifferenceEdgeDetector( );
-        private Threshold thresholdFilter = new Threshold( 40 );
+        private Threshold thresholdFilter = new Threshold( 20 );
         private BlobCounter blobCounter = new BlobCounter( );
         private SimpleShapeChecker shapeChecker = new SimpleShapeChecker( );
         private QuadrilateralTransformation quadrilateralTransformation = new QuadrilateralTransformation( );
@@ -40,7 +40,7 @@ namespace AForge.Vision.GlyphRecognition
         // maximum number of glyph to search in single image
         private int maxNumberOfGlyphsToSearch = 3;
         // mimimum confidance level for extracted raw glyph data
-        private float minConfidenceLevel = 0.60f;
+        private float minConfidenceLevel = 0.40f;
 
         // object used for synchronization
         private object sync = new object( );
@@ -143,8 +143,8 @@ namespace AForge.Vision.GlyphRecognition
         // Private constructor
         private GlyphRecognizer( )
         {
-            blobCounter.MinHeight    = 8;
-            blobCounter.MinWidth     = 8;
+            blobCounter.MinHeight    = 32;
+            blobCounter.MinWidth     = 32;
             blobCounter.FilterBlobs  = true;
             blobCounter.ObjectsOrder = ObjectsOrder.Size;
 
