@@ -225,7 +225,7 @@ namespace GlyphRecognitionStudio
         }
 
         // Open video source
-        private void OpenVideoSource( IVideoSource source, bool skippingFramesAllowed )
+        private void OpenVideoSource( IVideoSource source, bool skippingFramesAllowed = true )
         {
             // set busy cursor
             this.Cursor = Cursors.WaitCursor;
