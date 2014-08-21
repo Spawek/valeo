@@ -105,7 +105,7 @@ namespace SteeringCarFromAboveWPF
                     this.Dispatcher.Invoke(new Action(() => TextBlock_marksInfo.Text = "Map couldn't be build basing on current image!"));
                 }
 
-                waitingForNextBaseImage = false;
+                //waitingForNextBaseImage = false;
                 Console.WriteLine("New base frame acquired!");
             }
             else
@@ -127,7 +127,6 @@ namespace SteeringCarFromAboveWPF
                     }
                 }
             }
-            Console.WriteLine("Frame processed");
         }
 
         List<Line> lastTrack = new List<Line>();
@@ -144,8 +143,8 @@ namespace SteeringCarFromAboveWPF
                 Line l = new Line();
 
                 const double LENGTH = POSITION_STEP;
-                l.Stroke = Brushes.OrangeRed;
-                l.StrokeThickness = 1;
+                l.Stroke = Brushes.Cyan;
+                l.StrokeThickness = 4;
                 l.X1 = item.x;
                 l.X2 = item.x - Math.Cos(item.angle / 180.0d * Math.PI) * LENGTH;
                 l.Y1 = item.y;
@@ -305,13 +304,13 @@ namespace SteeringCarFromAboveWPF
                     Line l = new Line();
 
                     const double LENGTH = POSITION_STEP;
-                    l.Stroke = new SolidColorBrush(ColorFromHSV((25.0d * predecessorsCount) % 360.0d, 0.3d, 0.8d));
+                    l.Stroke = new SolidColorBrush(ColorFromHSV((20.0d * predecessorsCount) % 360.0d, 0.3d, 0.7d));
                     l.StrokeThickness = 1;
                     l.X1 = node.position.x;
                     l.X2 = node.position.x - Math.Cos(node.position.angle / 180.0d * Math.PI) * LENGTH;
                     l.Y1 = node.position.y;
                     l.Y2 = node.position.y - Math.Sin(node.position.angle / 180.0d * Math.PI) * LENGTH;
-                    l.Opacity = 0.8;
+                    //l.Opacity = 0.8;
 
                     Canvas_trackPlanner.Children.Add(l);
                     lastSeenNodesLines.Add(l);
@@ -404,16 +403,6 @@ namespace SteeringCarFromAboveWPF
             {
                 Console.WriteLine("Couldn't open video source");
             }
-        }
-
-        void async_VideoSourceError(object sender, VideoSourceErrorEventArgs eventArgs)
-        {
-            System.Windows.Forms.MessageBox.Show(eventArgs.Description);
-        }
-
-        void async_NewFrame(object sender, NewFrameEventArgs eventArgs)
-        {
-            System.Windows.Forms.MessageBox.Show("FRAME!");
         }
 
         private void button_GetNextImage_Click(object sender, RoutedEventArgs e)
@@ -515,7 +504,7 @@ namespace SteeringCarFromAboveWPF
         {
             if (videoSource != null)
             {
-                videoSource.Stop();
+                videoSource.SignalToStop();
             }
         }
 

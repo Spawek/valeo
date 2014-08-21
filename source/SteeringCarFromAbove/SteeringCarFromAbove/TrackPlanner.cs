@@ -176,7 +176,7 @@ namespace SteeringCarFromAbove
 
             double oldAngleInRadians = predecessor.position.angle / 180.0f * Math.PI;
             double angleStepInRadians = angleStep_ / 180.0f * Math.PI;
-            foreach (int i in new List<int>(){0, -1, 1})  // HARDCODE!
+            foreach (int i in new List<int>(){0, -1, 1})
             {
                 double newAngleInRadians = oldAngleInRadians + angleStepInRadians * i;
                 double newX = predecessor.position.x + Math.Cos(newAngleInRadians) * positionStep_;
