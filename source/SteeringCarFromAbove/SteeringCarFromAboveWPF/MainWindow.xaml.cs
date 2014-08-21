@@ -16,6 +16,7 @@ using SteeringCarFromAbove;
 using AForge.Video.DirectShow;
 using AForge.Video;
 using System.Runtime.InteropServices;
+using AForge.Video.VFW;
 
 namespace SteeringCarFromAboveWPF
 {
@@ -45,6 +46,7 @@ namespace SteeringCarFromAboveWPF
             glyphRecogniser = new GlyphRecognitionStudio.MainForm();
             glyphRecogniser.frameProcessed += glyphRecogniser_frameProcessed;
             glyphRecogniser.Show();
+            glyphRecogniser.Hide();
 
             carController = new CarController.DefaultCarController();
             carControllerWindow = new CarController.MainWindow(carController);
@@ -85,11 +87,10 @@ namespace SteeringCarFromAboveWPF
 
         void glyphRecogniser_frameProcessed(object sender, GlyphRecognitionStudio.MainForm.FrameData frameData)
         {
+            baseImage = frameData.getImage();
+            this.Dispatcher.Invoke(new Action(() => image_baseImagePicker.Source = loadBitmap(baseImage)));
             if (waitingForNextBaseImage)
             {
-                baseImage = frameData.getImage();
-                this.Dispatcher.Invoke(new Action(() => image_baseImagePicker.Source = loadBitmap(baseImage)));
-
                 map = mapBuilder.BuildMap(baseImage, frameData.getGlyphs());
 
                 if (map != null)
@@ -387,7 +388,6 @@ namespace SteeringCarFromAboveWPF
             }
         }
 
-
         System.Threading.Mutex m = new System.Threading.Mutex();
         private void Button_FileVideoSource_Click(object sender, RoutedEventArgs e)
         {
@@ -396,21 +396,14 @@ namespace SteeringCarFromAboveWPF
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
+
                 videoSource = new FileVideoSource(dialog.InitialDirectory + dialog.FileName);
-                videoSource.NewFrame += videoSource_Lock;
                 glyphRecogniser.InjectVideoSource(videoSource, false);
             }
             else
             {
                 Console.WriteLine("Couldn't open video source");
             }
-        }
-
-
-        int c = 0;
-        void videoSource_Lock(object sender, NewFrameEventArgs eventArgs)
-        {
-            Console.WriteLine(String.Format("F: {0}", c++));
         }
 
         void async_VideoSourceError(object sender, VideoSourceErrorEventArgs eventArgs)
