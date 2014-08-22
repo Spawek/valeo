@@ -1,0 +1,5 @@
+class diagram in engineering thesis
+filmiki - pokazać jak działa zakręcanie, hamowanie, zmiana biegów i jazda samochodem
+pokazać automatyczne włączanie samochodu
+
+diagram przepływu danych w dronie

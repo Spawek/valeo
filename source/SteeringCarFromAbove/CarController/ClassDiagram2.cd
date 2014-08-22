@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Comment CommentText="MVC">
-    <Position X="18.976" Y="3.186" Height="0.521" Width="0.971" />
-  </Comment>
   <Comment CommentText="Event Handlers">
     <Position X="1.601" Y="3.065" Height="0.386" Width="1.026" />
   </Comment>
@@ -24,9 +21,6 @@
   <Comment CommentText="Device manager">
     <Position X="8.042" Y="3.932" Height="0.419" Width="1.229" />
   </Comment>
-  <Comment CommentText="PID regulator is actually useless in brake regulating">
-    <Position X="18.38" Y="13.25" Height="0.75" Width="1.7" />
-  </Comment>
   <Class Name="CarController.App" Collapsed="true">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -37,7 +31,7 @@
   <Class Name="CarController.FakeCarCommunicator" Collapsed="true" HideInheritanceLine="true">
     <Position X="23.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAADBAAAAAAAAABACAAEAAABIAUAAAAgAAAQCgMAAA=</HashCode>
+      <HashCode>CAAADBAAAAAACAABACAAEAAABIAUAAAAgAAAQCgMAAA=</HashCode>
       <FileName>Test\Fakes\FakeCarCommunicator.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -53,7 +47,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>DKgAAAayAWAipAAAAGAAAhCAgAohAJAhoEEACACWAgI=</HashCode>
+      <HashCode>DKgAAASyAWAipAAAAGAAAhCAgAghAJAhoEEACACWAgA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -474,14 +468,14 @@
     </ShowAsAssociation>
   </Interface>
   <Enum Name="CarController.Gear">
-    <Position X="13" Y="0.5" Width="1.5" />
+    <Position X="14.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAECgAAAACAIAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Communicators\ICarComunicator.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Helpers.DeviceOverallState">
-    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Position X="12.75" Y="0.75" Width="1.5" />
     <TypeIdentifier />
   </Enum>
   <Delegate Name="CarController.TargetSpeedChangedEventHandler" Collapsed="true">
