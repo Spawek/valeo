@@ -1,0 +1,7 @@
+Andrew Troelsen, “Pro C# 5.0 and the .NET 4.5 Framework”, ISBN13: 978-1-4302-4233-8
+Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein, “Introduction to Algorithms”, ISBN-13: 978-0262033848
+Andrew Hunt, David Thomas: Pragmatyczny programista. Od czeladnika do mistrza, ISBN 83-204-2672-3
+Ben-Ari, M., "Principles of Concurrent and Distributed Programming", ISBN 0-13-711821-X
+Buehler, M., Iagnemma, K., and Singh, S., “The 2005 DARPA Grand Challenge: The Great Robot Race”, ISBN 978-3-540-73429-1
+Stanford Artificial Intelligence Lab, Stanford University, “The Stanford Entry in the Urban Challenge”
+Sebastian Thrun, Mike Montemerlo, Hendrik Dahlkamp, “Stanley: The Robot that Won the DARPA Grand Challenge”
