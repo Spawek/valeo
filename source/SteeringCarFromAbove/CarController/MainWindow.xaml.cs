@@ -222,6 +222,12 @@ namespace CarController
                     brakingTimer.Start();
                     break;
 
+                case Key.Q:
+                    Controller.OverrideTargetBrakeSetting(-80);
+                    brakingTimer.Interval = BRAKE_ACTIVATION_TIME_ON_SPACE_PRESSING_IN_MS;
+                    brakingTimer.Start();
+                    break;
+
                 case Key.K: //K -> change road direction
                     if(rideMode == RideMode.Forward)
                     {

@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteeringCarFromAbove", "SteeringCarFromAbove\SteeringCarFromAbove.csproj", "{C2012FEC-E35C-4AB0-BEFE-0756DB5480BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteeringCarFromAboveTests", "SteeringCarFromAboveTests\SteeringCarFromAboveTests.csproj", "{F878FE78-1A2A-4518-9DE8-763BF4F475A0}"
@@ -110,8 +112,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

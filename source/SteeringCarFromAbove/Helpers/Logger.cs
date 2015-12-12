@@ -12,8 +12,8 @@ namespace Helpers
         private static string logFileExtension = ".txt";
         private static bool isItFirstLog = true;
         private const int MAX_PRIORITY = 10;
-        private const int MIN_PRIORITY_TO_SHOW_IN_CONSOLE = 0; //in range[0, 10]
-        private const int MIN_PRIORITY_TO_WRINT_IN_FILE = 0; //10 = disabled
+        private const int MIN_PRIORITY_TO_SHOW_IN_CONSOLE = 2; //in range[0, 10]
+        private const int MIN_PRIORITY_TO_WRINT_IN_FILE = 10; //10 = disabled
 
         /// <summary></summary>
         /// <param name="loggingObj"></param>
